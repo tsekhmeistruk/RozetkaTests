@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozetkaTesting.Framework", "RozetkaTesting.PageObjectFramework\RozetkaTesting.Framework.csproj", "{2D82E28D-DE65-4800-B61B-F4D69D241EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozetkaTesting.WebPages", "RozetkaTesting.WebPages\RozetkaTesting.WebPages.csproj", "{814944FD-9DD9-46C9-A343-66F25F6F406E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D82E28D-DE65-4800-B61B-F4D69D241EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D82E28D-DE65-4800-B61B-F4D69D241EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D82E28D-DE65-4800-B61B-F4D69D241EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D82E28D-DE65-4800-B61B-F4D69D241EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814944FD-9DD9-46C9-A343-66F25F6F406E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814944FD-9DD9-46C9-A343-66F25F6F406E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814944FD-9DD9-46C9-A343-66F25F6F406E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814944FD-9DD9-46C9-A343-66F25F6F406E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
