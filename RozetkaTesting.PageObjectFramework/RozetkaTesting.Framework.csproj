@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +52,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeleniumApiWrapper\Browser.cs" />
     <Compile Include="Enums\BrowserType.cs" />
-    <Compile Include="SeleniumApiWrapper\WebElement.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="External\chromedriver.exe" />
+    <Content Include="External\IEDriverServer.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

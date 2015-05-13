@@ -1,6 +1,6 @@
 ﻿namespace RozetkaTesting.Framework.Enums
 {
-    public enum Browsers
+    public enum BrowserType
     {
         Firefox,
         InternetExplorer,
