@@ -10,7 +10,9 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
+using RozetkaTesting.Framework.DataModels;
 using RozetkaTesting.Framework.Enums;
+using RozetkaTesting.Framework.Helpers;
 
 namespace RozetkaTesting.Framework.SeleniumApiWrapper
 {
@@ -21,6 +23,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         private static IWebDriver _webDriver;
         private static string _timeOutPageReady;
         private static string _timeOutAjax;
+        private static HashSet<FirstLevelItem> _menuItems;
 
         private static IWebDriver WebDriver
         {
@@ -140,6 +143,11 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
             }
         }
 
+        public static HashSet<FirstLevelItem> MenuItems
+        {
+            get { return _menuItems ?? (_menuItems = JsonHelper.Deserializer<FirstLevelItem>(Settings.jsonMenuPath)); }
+        }
+
         #endregion
 
         #region Public Methods
@@ -150,6 +158,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         public static void Start()
         {
             _webDriver = StartWebDriver();
+            WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
 
         /// <summary>
@@ -160,7 +169,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         {
             if (url != null)
             {
-                WebDriver.Navigate().GoToUrl(url);
+                WebDriver.Navigate().GoToUrl(url);   
             }
         }
 

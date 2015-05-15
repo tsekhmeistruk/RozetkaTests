@@ -1,5 +1,5 @@
 ﻿using System;
-using RozetkaTesting.Framework;
+using OpenQA.Selenium;
 using RozetkaTesting.Framework.SeleniumApiWrapper;
 
 namespace RozetkaTesting.WebPages
@@ -8,29 +8,48 @@ namespace RozetkaTesting.WebPages
     {
         #region Protected Fields
 
-        protected readonly Uri UriAbsolute;
+        protected readonly Uri PageUri;        
 
         #endregion
 
         #region Constructor
 
-        protected PageBase(string relativeUriPath)
+        protected PageBase(string pageUri)
         {
-            UriAbsolute = new Uri(Settings.UrlBase + relativeUriPath);
+            PageUri = new Uri(pageUri);
         }
 
         #endregion
 
-        #region Public Methods
+        #region Public and Protected Methods
 
+        /// <summary>
+        /// Open URL.
+        /// </summary>
         public void Open()
         {
-            Browser.Navigate(UriAbsolute);
+            Browser.Navigate(PageUri);
+            Browser.WaitReadyState();
         }
 
+        /// <summary>
+        /// Get the title.
+        /// </summary>
+        /// <returns>Title text.</returns>
         public string GetTitle()
         {
             return Browser.Title;
+        }
+
+        /// <summary>
+        /// Sends keys to the input element on the page.
+        /// </summary>
+        /// <param name="input">The input element.</param>
+        /// <param name="value">The value.</param>
+        protected void SendKeys(IWebElement input, string value)
+        {
+            input.Clear();
+            input.SendKeys(value);
         }
 
         #endregion
