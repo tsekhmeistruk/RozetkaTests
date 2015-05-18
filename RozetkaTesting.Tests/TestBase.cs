@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using RozetkaTesting.Framework.SeleniumApiWrapper;
 
 namespace RozetkaTesting.Tests
 {
-    abstract public class TestBase
+    public abstract class TestBase
     {
+        public Browser Browser;
 
+        [TestFixtureSetUp]
+        public void Init()
+        {
+            this.Browser = OneTimeSetup.Browser;
+        }
     }
 }

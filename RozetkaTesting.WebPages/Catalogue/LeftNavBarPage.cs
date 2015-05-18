@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RozetkaTesting.Framework.SeleniumApiWrapper;
 
 namespace RozetkaTesting.WebPages.Catalogue
 {
@@ -10,7 +11,7 @@ namespace RozetkaTesting.WebPages.Catalogue
     {
         #region Constructor
 
-        public LeftNavBarPage(string pageUri) : base(pageUri)
+        public LeftNavBarPage(Uri pageUri, Browser browser) : base(pageUri, browser)
         {
         }
 

@@ -1,30 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using RozetkaTesting.Framework.DataModels;
 using RozetkaTesting.Framework.Helpers;
-using RozetkaTesting.Framework.SeleniumApiWrapper;
-using RozetkaTesting.WebPages.Catalogue;
+using RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software;
 
 namespace RozetkaTesting.Tests
 {
     [TestFixture]
-    public class Temp
+    public class Temp : TestBase
     {
+        private SoftwarePage _softwarePage;
+
+        [TestFixtureSetUp]
+        public void Initialize()
+        {
+            Uri uri = GetUri();
+            if (uri == null || uri == new Uri("error"))
+            {
+                throw new ArgumentNullException();
+            }
+            _softwarePage = new SoftwarePage(uri, Browser);
+        }
+
         [Test]
         public void CheckMainPageTitle()
         {
-            var page = new LeftNavBarPage("http://rozetka.com.ua");
-            var jsonMenu = JsonHelper.GetMenuItems();
-            page.Open();
+            _softwarePage.Open();
+            Assert.AreEqual(_softwarePage.GetTitle(), _softwarePage.Title);
+        }
 
-            foreach (var item in jsonMenu)
+        private Uri GetUri()
+        {
+            HashSet<FirstLevelItem> menuItems = JsonHelper.GetMenuItems();
+            string url = null;
+            foreach (FirstLevelItem firstLevelItem in menuItems)
             {
-                Browser.Navigate(new Uri(item.url));        
+                foreach (SecondLevelItem secondLevelItem in firstLevelItem.subItems)
+                {
+                    if (secondLevelItem.subTopic == "Программное обеспечение")
+                    {
+                        url = secondLevelItem.subUrl;
+                    }
+                }
             }
+
+            return new Uri(url) != null ? new Uri(url) : new Uri("error");
         }
     }
 }

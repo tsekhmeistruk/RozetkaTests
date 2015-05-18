@@ -10,46 +10,25 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
-using RozetkaTesting.Framework.DataModels;
 using RozetkaTesting.Framework.Enums;
-using RozetkaTesting.Framework.Helpers;
 
 namespace RozetkaTesting.Framework.SeleniumApiWrapper
 {
-    public static class Browser
+    public class Browser
     {
         #region Private Fields and Properties
 
-        private static IWebDriver _webDriver;
-        private static string _timeOutPageReady;
-        private static string _timeOutAjax;
-        private static HashSet<FirstLevelItem> _menuItems;
-
-        private static IWebDriver WebDriver
+        private IWebDriver _webDriver;
+        private IWebDriver WebDriver
         {
             get { return _webDriver ?? StartWebDriver(); }
         }
 
         #endregion
 
-        #region Static Constructor
-
-        static Browser()
-        {
-            Initialize();
-        }
-
-        #endregion
-
         #region Private Methods
 
-        private static void Initialize()
-        {
-            _timeOutPageReady = ConfigurationManager.AppSettings["TimeOutPageReady"];
-            _timeOutAjax = ConfigurationManager.AppSettings["TimeOutAjax"];
-        }
-
-        private static IWebDriver StartWebDriver()
+        private IWebDriver StartWebDriver()
         {
             if (_webDriver != null)
             {
@@ -75,10 +54,11 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
             }
 
             _webDriver.Manage().Window.Maximize();
+            SetImplicitWait(10); //TODO rewrite
             return _webDriver;
         }
 
-        private static InternetExplorerDriver StartInternetEplorer()
+        private InternetExplorerDriver StartInternetEplorer()
         {
             var internetExplorerOptions = new InternetExplorerOptions
             {
@@ -90,7 +70,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
             return new InternetExplorerDriver(Directory.GetCurrentDirectory() + "/External", internetExplorerOptions);
         }
 
-        private static FirefoxDriver StartFirefox()
+        private FirefoxDriver StartFirefox()
         {
             var firefoxProfile = new FirefoxProfile
             {
@@ -101,7 +81,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
             return new FirefoxDriver(firefoxProfile);
         }
 
-        private static ChromeDriver StartChrome()
+        private ChromeDriver StartChrome()
         {
             return new ChromeDriver(Directory.GetCurrentDirectory() + "/External");
         }
@@ -110,42 +90,40 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <remarks>Used by other wait methods.</remarks>
         /// <param name="condition">The condition to wait for.</param>
         /// <param name="timeout">The time in seconds to wait.</param>
-        private static void WaitUntilExpected(Func<IWebDriver, bool> condition, long timeout)
+        private void WaitUntilExpected(Func<IWebDriver, bool> condition, long timeout)
         {
             var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeout));
             wait.Until(condition);
+        }
+
+        private void SetImplicitWait(int seconds)
+        {
+            _webDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(seconds));
         }
 
         #endregion
 
         #region Public Properties
 
-        public static BrowserType SelectedBrowser
+        public BrowserType SelectedBrowser
         {
             get { return Settings.DefaultBrowser; }
         }
 
-        public static Uri Url
+        public Uri Url
         {
             get
             {
-                WaitAjax();
                 return new Uri(WebDriver.Url);
             }
         }
 
-        public static string Title
+        public string Title
         {
             get
             {
-                WaitAjax();
                 return string.Format("{0}", WebDriver.Title);
             }
-        }
-
-        public static HashSet<FirstLevelItem> MenuItems
-        {
-            get { return _menuItems ?? (_menuItems = JsonHelper.Deserializer<FirstLevelItem>(Settings.jsonMenuPath)); }
         }
 
         #endregion
@@ -155,7 +133,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <summary>
         /// Initializes the WebDriver.
         /// </summary>
-        public static void Start()
+        public void Start()
         {
             _webDriver = StartWebDriver();
             WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
@@ -165,84 +143,30 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// Navigates to the <see cref="url"/>.
         /// </summary>
         /// <param name="url">Target Uri.</param>
-        public static void Navigate(Uri url)
+        public void Navigate(Uri url)
         {
             if (url != null)
             {
-                WebDriver.Navigate().GoToUrl(url);   
+                WebDriver.Navigate().GoToUrl(url);
             }
         }
 
         /// <summary>
         /// Quits and sets WebDriver to null.
         /// </summary>
-        public static void Quit()
+        public void Quit()
         {
             if (WebDriver == null) return;
 
             _webDriver.Quit();
             _webDriver = null;
         }
-
-        /// <summary>
-        /// Waits until the page is loaded.
-        /// </summary>
-        /// <seealso cref="WaitReadyState(int)"/>
-        public static void WaitReadyState()
-        {
-            WaitReadyState(int.Parse(_timeOutPageReady));
-        }
-
-
-        /// <summary>
-        /// Waits until the page is loaded.
-        /// </summary>
-        /// <param name="timeout">The time in seconds to wait.</param>
-        /// <seealso cref="WaitReadyState()"/>
-        public static void WaitReadyState(int timeout)
-        {
-            Func<IWebDriver, bool> condition = driver =>
-                                                     (((IJavaScriptExecutor) driver).ExecuteScript("return document.readyState;"))
-                                                     .ToString().Equals("complete");
-            WaitUntilExpected(condition, timeout);
-        }
-
-        /// <summary>
-        /// Waits until Ajax is loaded.
-        /// </summary>
-        public static void WaitAjax()
-        {
-            var sw = new Stopwatch();
-            sw.Start();
-            try
-            {
-                while (sw.Elapsed.TotalSeconds < int.Parse(_timeOutAjax))
-                {
-                    var ajaxIsComplete =
-                        (bool)
-                            ((IJavaScriptExecutor) _webDriver).ExecuteScript(
-                                "return window.jQuery != undefined && jQuery.active==0");
-                    if (ajaxIsComplete)
-                        break;
-                    Thread.Sleep(100);
-                }
-            }
-            catch (Exception)
-            {
-                throw new Exception(String.Format("Ajax call time out time {0} has passed ",
-                    ConfigurationManager.AppSettings["TimeOutAjax"]));
-            }
-            finally
-            {
-                sw.Stop();
-            }
-        }
-
+   
         /// <summary>
         /// Switch to the Frame.
         /// </summary>
         /// <param name="inlineFrame">Target Frame.</param>
-        public static void SwitchToFrame(IWebElement inlineFrame)
+        public void SwitchToFrame(IWebElement inlineFrame)
         {
             WebDriver.SwitchTo().Frame(inlineFrame);
         }
@@ -250,7 +174,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <summary>
         /// Switch to the Default Content.
         /// </summary>
-        public static void SwitchToDefaultContent()
+        public void SwitchToDefaultContent()
         {
             WebDriver.SwitchTo().DefaultContent();
         }
@@ -260,7 +184,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// </summary>
         /// <param name="selector">By selector.</param>
         /// <returns>The IEnumerable of <see cref="IWebElement"/>.</returns>
-        public static IEnumerable<IWebElement> FindElements(By selector)
+        public IEnumerable<IWebElement> FindElements(By selector)
         {
             return WebDriver.FindElements(selector);
         }
@@ -269,10 +193,8 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// Gets screenshot.
         /// </summary>
         /// <returns></returns>
-        public static Screenshot GetScreenshot()
+        public Screenshot GetScreenshot()
         {
-            WaitReadyState();
-
             return ((ITakesScreenshot)WebDriver).GetScreenshot();
         }
 
@@ -280,7 +202,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// Saves screenshot in the specific <see cref="path"/>.
         /// </summary>
         /// <param name="path">The specific path for saving screenshot.</param>
-        public static void SaveScreenshot(string path)
+        public void SaveScreenshot(string path)
         {
             if (!String.IsNullOrEmpty(path))
             {
@@ -293,7 +215,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// </summary>
         /// <param name="width">Width of window.</param>
         /// <param name="height">Height of window</param>
-        public static void ResizeWindow(int width, int height)
+        public void ResizeWindow(int width, int height)
         {
             ExecuteJavaScript(string.Format("window.resizeTo({0}, {1});", width, height));
         }
@@ -301,7 +223,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <summary>
         /// Navigates back in browser/
         /// </summary>
-        public static void NavigateBack()
+        public void NavigateBack()
         {
             WebDriver.Navigate().Back();
         }
@@ -309,7 +231,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <summary>
         /// Refresh current page.
         /// </summary>
-        public static void Refresh()
+        public void Refresh()
         {
             WebDriver.Navigate().Refresh();
         }
@@ -320,7 +242,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         /// <param name="javaScript">The JavaScript code.</param>
         /// <param name="args">The specific arguments.</param>
         /// <returns>The object/</returns>
-        public static object ExecuteJavaScript(string javaScript, params object[] args)
+        public object ExecuteJavaScript(string javaScript, params object[] args)
         {
             var javaScriptExecutor = (IJavaScriptExecutor)WebDriver;
 

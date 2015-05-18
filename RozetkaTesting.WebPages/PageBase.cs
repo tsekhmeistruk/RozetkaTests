@@ -8,15 +8,17 @@ namespace RozetkaTesting.WebPages
     {
         #region Protected Fields
 
-        protected readonly Uri PageUri;        
+        protected readonly Uri PageUri;
+        protected readonly Browser Browser;
 
         #endregion
 
         #region Constructor
 
-        protected PageBase(string pageUri)
+        protected PageBase(Uri pageUri, Browser browser)
         {
-            PageUri = new Uri(pageUri);
+            Browser = browser;
+            PageUri = pageUri;
         }
 
         #endregion
@@ -29,7 +31,6 @@ namespace RozetkaTesting.WebPages
         public void Open()
         {
             Browser.Navigate(PageUri);
-            Browser.WaitReadyState();
         }
 
         /// <summary>
