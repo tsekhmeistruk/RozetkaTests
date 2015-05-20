@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
-using RozetkaTesting.Framework.DataModels;
-using RozetkaTesting.Framework.Helpers;
 using RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software;
 
 namespace RozetkaTesting.Tests
@@ -16,7 +13,7 @@ namespace RozetkaTesting.Tests
         public void Initialize()
         {
             Uri uri = GetUri();
-            if (uri == null || uri == new Uri("error"))
+            if (uri == null)
             {
                 throw new ArgumentNullException();
             }
@@ -32,20 +29,8 @@ namespace RozetkaTesting.Tests
 
         private Uri GetUri()
         {
-            HashSet<FirstLevelItem> menuItems = JsonHelper.GetMenuItems();
-            string url = null;
-            foreach (FirstLevelItem firstLevelItem in menuItems)
-            {
-                foreach (SecondLevelItem secondLevelItem in firstLevelItem.subItems)
-                {
-                    if (secondLevelItem.subTopic == "Программное обеспечение")
-                    {
-                        url = secondLevelItem.subUrl;
-                    }
-                }
-            }
-
-            return new Uri(url) != null ? new Uri(url) : new Uri("error");
+            var uri = new Uri("http://soft.rozetka.com.ua", UriKind.Absolute);
+            return uri;
         }
     }
 }

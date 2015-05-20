@@ -48,7 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Catalogue\LeftNavBarPage.cs" />
     <Compile Include="Catalogue\NotebooksTabletsPcs\Software\SoftwarePage.cs" />
     <Compile Include="PageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

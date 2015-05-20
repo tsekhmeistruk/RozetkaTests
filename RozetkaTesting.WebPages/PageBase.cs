@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using RozetkaTesting.Framework.SeleniumApiWrapper;
 
 namespace RozetkaTesting.WebPages
@@ -19,6 +20,7 @@ namespace RozetkaTesting.WebPages
         {
             Browser = browser;
             PageUri = pageUri;
+            PageFactory.InitElements(Browser, this);
         }
 
         #endregion

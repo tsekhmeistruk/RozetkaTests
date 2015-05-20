@@ -10,7 +10,7 @@ for(i=0; i<cells.length; i++) {
   item.url = cells[i].href;
   
   item.subItems = [];
-  var subCells = document.querySelectorAll("ul[id='m-main'] > li:nth-of-type(" + numI + ") .m-main-subl > li > a");
+  var subCells = document.querySelectorAll("ul[id='m-main'] > li:nth-of-type(" + (i+1) + ") .m-main-subl > li > a");
   for(j=0; j<subCells.length; j++){
     var subItem = {};
     subItem.subTopic = replace(subCells[j]);
