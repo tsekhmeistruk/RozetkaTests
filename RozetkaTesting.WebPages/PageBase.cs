@@ -9,17 +9,17 @@ namespace RozetkaTesting.WebPages
     {
         #region Protected Fields
 
-        protected readonly Uri PageUri;
         protected readonly Browser Browser;
+        protected string PageTitle;
+        protected Uri PageUri;
 
         #endregion
 
         #region Constructor
 
-        protected PageBase(Uri pageUri, Browser browser)
+        protected PageBase(Browser browser)
         {
             Browser = browser;
-            PageUri = pageUri;
             PageFactory.InitElements(Browser, this);
         }
 

@@ -8,33 +8,26 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
     public class SoftwarePage: PageBase
     {
-        #region Public Fields
-
-        public string Title =
-            "Программное обеспечение - Интернет магазин Rozetka.ua | Лицензионное по в Киеве, Одессе, Харькове, Донецке: цена, отзывы, продажа, купить оптом лицензионные программы";
-
-        #endregion
-
         #region IWebElements
 
-        [FindsBy(How = How.CssSelector, Using = "a.paginator-catalog-l-link")] private IList<IWebElement> _paginators;
+        [FindsBy(How = How.CssSelector, Using = "a.paginator-catalog-l-link")] 
+        private IList<IWebElement> _paginators;
 
         #endregion
 
         #region Constructor
 
-        public SoftwarePage(Uri pageUri, Browser browser) : base(pageUri, browser)
+        public SoftwarePage(Browser browser) : base(browser)
         {
+            PageUri = new Uri("http://soft.rozetka.com.ua/");
+            PageTitle = "Программное обеспечение - Интернет магазин Rozetka.ua | Лицензионное по в Киеве, Одессе, Харькове, Донецке: цена, отзывы, продажа, купить оптом лицензионные программы";
         }
 
         #endregion
 
         #region SoftwarePage functionality
 
-        public IEnumerable<IWebElement> ClickNextPageinator()
-        {
-            return _paginators;
-        }
+        //TODO 
 
         #endregion
     }

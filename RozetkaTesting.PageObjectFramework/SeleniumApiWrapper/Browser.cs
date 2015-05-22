@@ -248,13 +248,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
 
         private FirefoxDriver StartFirefox()
         {
-            var firefoxProfile = new FirefoxProfile
-            {
-                AcceptUntrustedCertificates = true,
-                EnableNativeEvents = true
-            };
-
-            return new FirefoxDriver(firefoxProfile);
+            return new FirefoxDriver();
         }
 
         private ChromeDriver StartChrome()

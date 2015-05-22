@@ -51,14 +51,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OneTimeSetup.cs" />
+    <Compile Include="StepDefinitions\FilteringSidebarSteps.cs" />
+    <Compile Include="StepDefinitions\SpecFlowFeatureSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Temp.cs" />
-    <Compile Include="TestBase.cs" />
+    <Compile Include="Features\FilteringSidebar\FilteringParametersSidebar.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilteringParametersSidebar.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Features\FilteringSidebar\FilteringParametersSidebar.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FilteringParametersSidebar.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RozetkaTesting.PageObjectFramework\RozetkaTesting.Framework.csproj">
@@ -69,6 +79,9 @@
       <Project>{814944fd-9dd9-46c9-a343-66f25f6f406e}</Project>
       <Name>RozetkaTesting.WebPages</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
