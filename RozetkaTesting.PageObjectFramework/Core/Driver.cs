@@ -9,9 +9,12 @@ using OpenQA.Selenium.IE;
 using RozetkaTesting.Framework.Enums;
 using RozetkaTesting.Framework.Helpers;
 
-namespace RozetkaTesting.Framework.SeleniumApiWrapper
+namespace RozetkaTesting.Framework.Core
 {
-    public class Browser : ISearchContext
+    /// <summary>
+    /// Represents the Selenium WebDriver abstraction layer for interacting with the Browser.
+    /// </summary>
+    public class Driver : ISearchContext
     {
         #region IWebDriver
 
@@ -26,40 +29,37 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
 
         #region Public Properties
 
+        /// <summary>
+        /// Returns the type of browser.
+        /// </summary>
         public BrowserType SelectedBrowser
         {
             get
             {
-                Dictionary<string, string> browserConfig = JsonHelper.Deserialize(
-                    "../../../RozetkaTesting.PageObjectFramework/External/BrowserConfig.json");
-                string browser;
-                browserConfig.TryGetValue("type", out browser);
-
-                switch (browser)
-                {
-                    case "Firefox":
-                        return BrowserType.Firefox;
-
-                    case "Chrome":
-                        return BrowserType.Chrome;
-
-                    case "IE":
-                        return BrowserType.InternetExplorer;
-
-                    default:
-                        throw new Exception("Work browser was not appointed.");
-                }
+                return GetBrowserType();
             }
         }
 
+        /// <summary>
+        /// Returns the current URL.
+        /// </summary>
         public Uri Url
         {
-            get { return new Uri(WebDriver.Url); }
+            get
+            {
+                return new Uri(WebDriver.Url);
+            }
         }
 
+        /// <summary>
+        /// Returns the current Title.
+        /// </summary>
         public string Title
         {
-            get { return string.Format("{0}", WebDriver.Title); }
+            get
+            {
+                return string.Format("{0}", WebDriver.Title);
+            }
         }
 
         #endregion
@@ -67,7 +67,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         #region WebDriver functionality
 
         /// <summary>
-        ///     Initializes the WebDriver.
+        /// Initializes the WebDriver.
         /// </summary>
         public void Start()
         {
@@ -76,7 +76,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Navigates to the <see cref="url" />.
+        /// Navigates to the <see cref="url" />.
         /// </summary>
         /// <param name="url">Target Uri.</param>
         public void Navigate(Uri url)
@@ -88,18 +88,21 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Quits and sets WebDriver to null.
+        /// Quits and sets WebDriver to null.
         /// </summary>
         public void Quit()
         {
-            if (WebDriver == null) return;
+            if (WebDriver == null)
+            {
+                return;
+            }
 
             _webDriver.Quit();
             _webDriver = null;
         }
 
         /// <summary>
-        ///     Switch to the Frame.
+        /// Switch to the Frame.
         /// </summary>
         /// <param name="inlineFrame">Target Frame.</param>
         public void SwitchToFrame(IWebElement inlineFrame)
@@ -108,7 +111,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Switch to the Default Content.
+        /// Switch to the Default Content.
         /// </summary>
         public void SwitchToDefaultContent()
         {
@@ -116,7 +119,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Gets screenshot.
+        /// Gets screenshot.
         /// </summary>
         /// <returns></returns>
         public Screenshot GetScreenshot()
@@ -125,7 +128,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Saves screenshot in the specific <see cref="path" />.
+        /// Saves screenshot in the specific <see cref="path" />.
         /// </summary>
         /// <param name="path">The specific path for saving screenshot.</param>
         public void SaveScreenshot(string path)
@@ -137,17 +140,17 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Resizes window.
+        /// Resizes window.
         /// </summary>
         /// <param name="width">Width of window.</param>
-        /// <param name="height">Height of window</param>
+        /// <param name="height">Height of window.</param>
         public void ResizeWindow(int width, int height)
         {
             ExecuteJavaScript(string.Format("window.resizeTo({0}, {1});", width, height));
         }
 
         /// <summary>
-        ///     Navigates back in browser/
+        /// Navigates back in a browser.
         /// </summary>
         public void NavigateBack()
         {
@@ -155,7 +158,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Refresh current page.
+        /// Refresh current page.
         /// </summary>
         public void Refresh()
         {
@@ -163,7 +166,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Executes JavaScript code.
+        /// Executes JavaScript code.
         /// </summary>
         /// <param name="javaScript">The JavaScript code.</param>
         /// <param name="args">The specific arguments.</param>
@@ -171,7 +174,6 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         public object ExecuteJavaScript(string javaScript, params object[] args)
         {
             var javaScriptExecutor = (IJavaScriptExecutor) WebDriver;
-
             return javaScriptExecutor.ExecuteScript(javaScript, args);
         }
 
@@ -180,9 +182,9 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         #region ISearchContext
 
         /// <summary>
-        ///     Finds the web element.
+        /// Finds the web element.
         /// </summary>
-        /// <param name="by"></param>
+        /// <param name="by">The specific locator.</param>
         /// <returns>The <see cref="IWebElement" /> object.</returns>
         public IWebElement FindElement(By @by)
         {
@@ -190,11 +192,11 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         }
 
         /// <summary>
-        ///     Finds the web elements.
+        /// Finds the web elements.
         /// </summary>
-        /// <param name="by"></param>
+        /// <param name="by">The specific locator.</param>
         /// <returns>The collection of <see cref="IWebElement" /> objects.</returns>
-        ReadOnlyCollection<IWebElement> ISearchContext.FindElements(By @by)
+        public ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
             return WebDriver.FindElements(@by);
         }
@@ -221,7 +223,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
                     break;
 
                 case BrowserType.InternetExplorer:
-                    _webDriver = StartInternetEplorer();
+                    _webDriver = StartInternetExplorer();
                     break;
 
                 default:
@@ -233,7 +235,7 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
             return _webDriver;
         }
 
-        private InternetExplorerDriver StartInternetEplorer()
+        private InternetExplorerDriver StartInternetExplorer()
         {
             var internetExplorerOptions = new InternetExplorerOptions
             {
@@ -260,6 +262,35 @@ namespace RozetkaTesting.Framework.SeleniumApiWrapper
         {
             _webDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(seconds));
         }
+
+        private BrowserType GetBrowserType()
+        {
+            string browser = ReadBrowserTypeFromConfig();
+
+            switch (browser)
+            {
+                case "Firefox":
+                    return BrowserType.Firefox;
+
+                case "Chrome":
+                    return BrowserType.Chrome;
+
+                case "IE":
+                    return BrowserType.InternetExplorer;
+
+                default:
+                    throw new Exception("Work browser was not appointed.");
+            }
+        }
+
+        private string ReadBrowserTypeFromConfig()
+        {
+            Dictionary<string, string> browserConfig =
+                                       JsonHelper.Deserialize("../../../RozetkaTesting.PageObjectFramework/External/BrowserConfig.json");
+            string browser;
+            browserConfig.TryGetValue("type", out browser);
+            return browser;
+        } 
 
         #endregion
     }

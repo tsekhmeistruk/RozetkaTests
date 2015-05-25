@@ -1,7 +1,7 @@
-﻿using RozetkaTesting.Framework.SeleniumApiWrapper;
+﻿using RozetkaTesting.Framework.Core;
 using TechTalk.SpecFlow;
 
-namespace RozetkaTesting.Tests.StepDefinitions
+namespace RozetkaTesting.Tests.SpecFlow
 {
     [Binding]
     public sealed class SpecFlowFeatureSteps
@@ -11,13 +11,14 @@ namespace RozetkaTesting.Tests.StepDefinitions
         [BeforeFeature]
         public static void BeforeFeature()
         {
-            FeatureContext.Current.Set(new Browser());
+            FeatureContext.Current.Set(new Driver());
+            WebPages.HtmlControls.BaseControl.Driver = FeatureContext.Current.Get<Driver>();
         }
 
         [AfterFeature]
         public static void AfterFeature()
         {
-            FeatureContext.Current.Get<Browser>().Quit();
+            FeatureContext.Current.Get<Driver>().Quit();
         }
 
         [BeforeScenario]

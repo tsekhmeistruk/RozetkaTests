@@ -1,21 +1,21 @@
 ﻿using System.Threading;
 using NUnit.Framework;
-using RozetkaTesting.Framework.SeleniumApiWrapper;
+using RozetkaTesting.Framework.Core;
 using RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software;
 using TechTalk.SpecFlow;
 
-namespace RozetkaTesting.Tests.StepDefinitions
+namespace RozetkaTesting.Tests.FilteringSidebar
 {
     [Binding]
     class FilteringSidebarSteps
     {
         #region Web driver
 
-        private Browser _browser;
+        private Driver _browser;
 
-        private Browser Browser
+        private Driver Browser
         {
-            get { return _browser ?? (_browser = FeatureContext.Current.Get<Browser>()); }
+            get { return _browser ?? (_browser = FeatureContext.Current.Get<Driver>()); }
         }
 
         #endregion

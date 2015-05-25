@@ -49,8 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Catalogue\NotebooksTabletsPcs\Software\OperationSystemsPage.cs" />
-    <Compile Include="Catalogue\NotebooksTabletsPcs\Software\SoftwarePage.cs" />
-    <Compile Include="PageBase.cs" />
+    <Compile Include="BasePage.cs" />
+    <Compile Include="HtmlControls\BaseControl.cs" />
+    <Compile Include="HtmlControls\Button.cs" />
+    <Compile Include="HtmlControls\CheckBox.cs" />
+    <Compile Include="HtmlControls\ControlType.cs" />
+    <Compile Include="HtmlControls\HtmlControl.cs" />
+    <Compile Include="HtmlControls\Label.cs" />
+    <Compile Include="HtmlControls\Link.cs" />
+    <Compile Include="HtmlControls\RadioButton.cs" />
+    <Compile Include="HtmlControls\TextField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

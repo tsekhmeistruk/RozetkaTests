@@ -2,11 +2,11 @@
 using System.Globalization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using RozetkaTesting.Framework.SeleniumApiWrapper;
+using RozetkaTesting.Framework.Core;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
-    public class OperationSystemsPage: PageBase
+    public sealed class OperationSystemsPage: BasePage
     {
         #region Filter's Elements
 
@@ -108,10 +108,12 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         #region Constructor
 
-        public OperationSystemsPage(Browser browser) : base(browser)
+        /// <summary>
+        /// Initializes new instance of <see cref="OperationSystemsPage"/> class.
+        /// </summary>
+        /// <param name="browser">Instance of <see cref="Driver"/> class.</param>
+        public OperationSystemsPage(Driver browser) : base(browser)
         {
-            PageUri = new Uri("http://soft.rozetka.com.ua/os/c80063/");
-            PageTitle = "Операционные системы - Интернет магазин Rozetka.ua | Операционная система windows в Киеве, Одессе, Харькове, Донецке: цена, отзывы, продажа, купить оптом windows 7";
         }
 
         #endregion
@@ -155,6 +157,23 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         //TODO Implement other functionality on this page.
 
+        #region Override Methods
+
+        /// <summary>
+        /// Initializes all necessary members such as: URL, Title etc.
+        /// </summary>
+        protected override void Initialize()
+        {
+            PageUri = new Uri("http://soft.rozetka.com.ua/os/c80063/");
+
+            PageTitle = "Операционные системы - Интернет магазин Rozetka.ua | " +
+                        "Операционная система windows в Киеве, Одессе, Харькове, " +
+                        "Донецке: цена, отзывы, продажа, купить оптом windows 7";
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void GetPriceRange(out int minValue, out int maxValue)
         {
@@ -172,5 +191,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
             minValue = rnd.Next(min, max/2);
             maxValue = rnd.Next(minValue, max);
         }
+
+        #endregion
     }
 }

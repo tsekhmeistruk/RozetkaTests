@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace RozetkaTesting.Tests.Features.FilteringSidebar
+namespace RozetkaTesting.Tests.FilteringSidebar
 {
     using TechTalk.SpecFlow;
     
