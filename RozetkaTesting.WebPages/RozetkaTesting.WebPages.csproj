@@ -52,7 +52,7 @@
     <Compile Include="BasePage.cs" />
     <Compile Include="HtmlControls\BaseControl.cs" />
     <Compile Include="HtmlControls\Button.cs" />
-    <Compile Include="HtmlControls\CheckBox.cs" />
+    <Compile Include="HtmlControls\Checkbox.cs" />
     <Compile Include="HtmlControls\ControlType.cs" />
     <Compile Include="HtmlControls\HtmlControl.cs" />
     <Compile Include="HtmlControls\Label.cs" />

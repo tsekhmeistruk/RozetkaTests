@@ -6,7 +6,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using RozetkaTesting.Framework.Enums;
 using RozetkaTesting.Framework.Helpers;
 
 namespace RozetkaTesting.Framework.Core

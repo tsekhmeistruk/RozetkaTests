@@ -1,108 +1,49 @@
 ﻿using System;
 using System.Globalization;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using RozetkaTesting.Framework.Core;
+using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
     public sealed class OperationSystemsPage: BasePage
     {
-        #region Filter's Elements
+        #region String Values of Tag's Attributes on the Page
 
         /*----------Price filter----------*/
-        private const string _priceMinValueId = "price[min]";
-        private const string _priceMaxValueId = "price[max]";
-        private const string _submitPriceId = "submitprice";
-
-        [FindsBy(How = How.Id, Using = _priceMinValueId)] 
-        private IWebElement _priceMinInput;
-
-        [FindsBy(How = How.Id, Using = _priceMaxValueId)]
-        private IWebElement _priceMaxInput;
-
-        [FindsBy(How = How.Id, Using = _submitPriceId)]
-        private IWebElement _priceSubmitButton;
+        private string _priceMinValueId = "price[min]";
+        private string _priceMaxValueId = "price[max]";
+        private string _submitPriceId = "submitprice";
 
         /*----------Type of user filter----------*/
-        private const string _typeOfUserParameterId = "sort_52802";
-        private const string _titleUsers = "Для домашних и корпоративных пользователей";
-        private const string _titleBuilders = "Для сборщиков систем (ОЕМ)";
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _typeOfUserParameterId + "']/a//i[text()='" + _titleUsers + "']/../..")]
-        private IWebElement _homeUsersCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _typeOfUserParameterId + "']/a//i[text()='" + _titleBuilders + "']/../..")]
-        private IWebElement _systemBuildersCheckbox;
+        private string _typeOfUserId = "sort_52802";
+        private string _titleUsers = "Для домашних и корпоративных пользователей";
+        private string _titleBuilders = "Для сборщиков систем (ОЕМ)";
 
         /*----------Version of software filter----------*/
-        private const string _versionParameterId = "sort_26284";
-        private const string _titleParameterWin7 = "Windows 7";
-        private const string _titleParameterWin8 = "Windows 8";
-        private const string _titleParameterWin81 = "Windows 8.1";
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _versionParameterId + "']/a//i[text()='" + _titleParameterWin7 + "']/../..")]
-        private IWebElement _windows7Checkbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _versionParameterId + "']/a//i[text()='" + _titleParameterWin8 + "']/../..")] 
-        private IWebElement _windows8Checkbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _versionParameterId + "']/a//i[text()='" + _titleParameterWin81 + "']/../..")] 
-        private IWebElement _windows81Checkbox;
+        private string _versionParameterId = "sort_26284";
+        private string _titleWin7 = "Windows 7";
+        private string _titleWin8 = "Windows 8";
+        private string _titleWin81 = "Windows 8.1";
 
         /*----------System's capacity----------*/
-        private const string _bitParameterId = "sort_26013";
-        private const string _titleParameter32bit = "32-разрядные";
-        private const string _titleParameter64bit = "64-разрядные";
-        private const string _titleParameter32and64bit = "32- и 64-разрядные";
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _bitParameterId + "']/a//i[text()='" + _titleParameter32bit + "']/../..")]
-        private IWebElement _32bitCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _bitParameterId + "']/a//i[text()='" + _titleParameter64bit + "']/../..")]
-        private IWebElement _64bitCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _bitParameterId + "']/a//i[text()='" + _titleParameter32and64bit + "']/../..")]
-        private IWebElement _32and64Checkbox;
+        private string _bitId = "sort_26013";
+        private string _title32bit = "32-разрядные";
+        private string _title64bit = "64-разрядные";
+        private string _title32and64bit = "32- и 64-разрядные";
 
         /*----------Type of Product----------*/
-        private const string _productTypeParameterId = "sort_60842";
-        private const string _titleBoxType = "Коробочная версия";
-        private const string _titleOemType = "ОЕМ версия (для сборщиков систем)";
-        private const string _titleCorporateType = "Корпоративная лицензия";
-        private const string _titleElectronicKeyType = "Электронный ключ";
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _productTypeParameterId + "']/a//i[text()='" + _titleBoxType + "']/../..")] 
-        private IWebElement _BoxTypeChecbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _productTypeParameterId + "']/a//i[text()='" + _titleOemType + "']/../..")] 
-        private IWebElement _oemTypeCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _productTypeParameterId + "']/a//i[text()='" + _titleCorporateType + "']/../..")]
-        private IWebElement _corporateTypeCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _productTypeParameterId + "']/a//i[text()='" + _titleElectronicKeyType + "']/../..")]
-        private IWebElement _electronicKeyTypeCheckbox;
-
+        private string _productTypeId = "sort_60842";
+        private string _titleBoxType = "Коробочная версия";
+        private string _titleOemType = "ОЕМ версия (для сборщиков систем)";
+        private string _titleCorporateType = "Корпоративная лицензия";
+        private string _titleElectronicKeyType = "Электронный ключ";
 
         /*----------Application's language----------*/
-        private const string _languageParameterId = "sort_24795";
-        private const string _titleEnglish = "Английский";
-        private const string _titleMultilingual = "Многоязычный";
-        private const string _titleRussian = "Русский";
-        private const string _titleUkrainian = "Украинский";
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _languageParameterId + "']/a//i[text()='" + _titleEnglish + "']/../..")]
-        private IWebElement _englishChecbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _languageParameterId + "']/a//i[text()='" + _titleMultilingual + "']/../..")]
-        private IWebElement _multilingualCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _languageParameterId + "']/a//i[text()='" + _titleRussian + "']/../..")] 
-        private IWebElement _russianCheckbox;
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='" + _languageParameterId + "']/a//i[text()='" + _titleUkrainian + "']/../..")] 
-        private IWebElement _ukrainianCheckbox;
+        private string _languageId = "sort_24795";
+        private string _titleEnglish = "Английский";
+        private string _titleMultilingual = "Многоязычный";
+        private string _titleRussian = "Русский";
+        private string _titleUkrainian = "Украинский";
 
         #endregion
 
@@ -118,9 +59,120 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         #endregion
 
+        #region Page controls
+
+        /*-----'Price' controls-----*/
+
+        private TextField TextField_MinPriceValue()
+        {
+            return TextField.ById(_priceMinValueId);
+        }
+
+        private TextField TextField_MaxPriceValue()
+        {
+            return TextField.ById(_priceMaxValueId);
+        }
+
+        private Button Button_SubmitPrice()
+        {
+            return Button.ById(_submitPriceId);
+        }
+
+        /*-----'Type of users' controls-----*/
+
+        private Checkbox Checkbox_HomeUsers()
+        {
+            return Checkbox.ByIdAndTitle(_typeOfUserId, _titleUsers);
+        }
+
+        private Checkbox Checkbox_SystemBuilders()
+        {
+            return Checkbox.ByIdAndTitle(_typeOfUserId, _titleBuilders);
+        }
+
+        /*-----'Version of software' controls-----*/
+
+        private Checkbox Checkbox_Windows7()
+        {
+            return Checkbox.ByIdAndTitle(_versionParameterId, _titleWin7);
+        }
+
+        private Checkbox Checkbox_Windows8()
+        {
+            return Checkbox.ByIdAndTitle(_versionParameterId, _titleWin8);
+        }
+
+        private Checkbox Checkbox_Windows81()
+        {
+            return Checkbox.ByIdAndTitle(_versionParameterId, _titleWin81);
+        }
+
+        /*-----'System's capacity' controls-----*/
+
+        private Checkbox Checkbox_32bit()
+        {
+            return Checkbox.ByIdAndTitle(_bitId, _title32bit);
+        }
+
+        private Checkbox Checkbox_64bit()
+        {
+            return Checkbox.ByIdAndTitle(_bitId, _title64bit);
+        }
+
+        private Checkbox Checkbox_32and64bit()
+        {
+            return Checkbox.ByIdAndTitle(_bitId, _title32and64bit);
+        }
+
+        /*-----'Type of Product' controls-----*/
+
+        private Checkbox Checkbox_BoxType()
+        {
+            return Checkbox.ByIdAndTitle(_productTypeId, _titleBoxType);
+        }
+
+        private Checkbox Checkbox_OemType()
+        {
+            return Checkbox.ByIdAndTitle(_productTypeId, _titleOemType);
+        }
+
+        private Checkbox Checkbox_CorporateType()
+        {
+            return Checkbox.ByIdAndTitle(_productTypeId, _titleCorporateType);
+        }
+
+        private Checkbox Checkbox_ElectronicKeyType()
+        {
+            return Checkbox.ByIdAndTitle(_productTypeId, _titleElectronicKeyType);
+        }
+
+        /*-----'Application's language' controls-----*/
+
+        private Checkbox Checkbox_English()
+        {
+            return Checkbox.ByIdAndTitle(_languageId, _titleEnglish);
+        }
+
+        private Checkbox Checkbox_Multilingual()
+        {
+            return Checkbox.ByIdAndTitle(_languageId, _titleMultilingual);
+        }
+
+        private Checkbox Checkbox_Russian()
+        {
+            return Checkbox.ByIdAndTitle(_languageId, _titleRussian);
+        }
+
+        private Checkbox Checkbox_Ukrainian()
+        {
+            return Checkbox.ByIdAndTitle(_languageId, _titleUkrainian);
+        }
+
+        #endregion
+
         #region Filter's functionality
 
-        /*----------Price----------*/
+        /*-----Price-----*/
 
         /// <summary>
         /// Sets the range of price values.
@@ -132,25 +184,25 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
             GetRandomRange(out minValue, out maxValue);
             Browser.Refresh();
             Browser.ExecuteJavaScript("document.getElementById('price[min]').value = " + minValue + ";");
-            SendKeys(_priceMaxInput, maxValue.ToString(CultureInfo.InvariantCulture));
+            TextField_MaxPriceValue().ClearAndType(maxValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
         /// Presses button 'OK' for submitting range of price.
         /// </summary>
-        public void SubmitPriceBtn()
+        public void SubmitPriceFilter()
         {
-            _priceSubmitButton.Click();
+            Button_SubmitPrice().Click();
         }
 
+        /*-----Type of users-----*/
+
         /// <summary>
-        /// Resets price filter's values. 
+        /// Checks 'Home users' checkbox.
         /// </summary>
-        public void ResetPriceFilter()
+        public void CheckHomeUsers()
         {
-            _priceMinInput.Clear();
-            _priceMaxInput.Clear();
-            _priceSubmitButton.Click();
+            Checkbox_HomeUsers().Check();
         }
 
         #endregion
@@ -177,10 +229,10 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         private void GetPriceRange(out int minValue, out int maxValue)
         {
-            _priceMinInput.SendKeys("1");
-            _priceMaxInput.Clear();
-            minValue = int.Parse(_priceMinInput.GetAttribute("value"));
-            maxValue = int.Parse(_priceMaxInput.GetAttribute("value"));
+            TextField_MinPriceValue().ClearAndType("_");
+            TextField_MaxPriceValue().ClearAndType("");
+            minValue = int.Parse(TextField_MinPriceValue().GetValue());
+            maxValue = int.Parse(TextField_MaxPriceValue().GetValue());
         }
 
         private void GetRandomRange(out int minValue, out int maxValue)

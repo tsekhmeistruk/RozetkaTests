@@ -1,4 +1,4 @@
-﻿namespace RozetkaTesting.Framework.Enums
+﻿namespace RozetkaTesting.Framework.Core
 {
     public enum BrowserType
     {

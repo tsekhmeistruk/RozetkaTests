@@ -53,7 +53,7 @@ namespace RozetkaTesting.WebPages
         }
 
         /// <summary>
-        /// Open URL.
+        /// Opens page URL.
         /// </summary>
         public void Open()
         {
@@ -62,7 +62,7 @@ namespace RozetkaTesting.WebPages
         }
 
         /// <summary>
-        /// Verify page.
+        /// Verifies page.
         /// </summary>
         protected virtual void Verify()
         {
@@ -73,7 +73,7 @@ namespace RozetkaTesting.WebPages
         } 
 
         /// <summary>
-        /// Get the title.
+        /// Gets the title of current page..
         /// </summary>
         /// <returns>Title text.</returns>
         public string GetTitle()

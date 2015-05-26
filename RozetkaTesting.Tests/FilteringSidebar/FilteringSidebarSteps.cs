@@ -41,7 +41,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         public void WhenIPressButtonForSubmittingPriceFilter()
         {
             var osPage = ScenarioContext.Current.Get<OperationSystemsPage>();
-            osPage.SubmitPriceBtn();
+            osPage.SubmitPriceFilter();
         }
 
         [Then(@"the result page should contains goods which has appropriate price range")]
