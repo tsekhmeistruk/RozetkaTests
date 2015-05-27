@@ -45,14 +45,6 @@ namespace RozetkaTesting.WebPages
         #region Public and Protected Methods
 
         /// <summary>
-        /// Initializes data.
-        /// </summary>
-        public void InitializeData()
-        {
-            Initialize();
-        }
-
-        /// <summary>
         /// Opens page URL.
         /// </summary>
         public void Open()
@@ -60,17 +52,6 @@ namespace RozetkaTesting.WebPages
             Browser.Navigate(PageUri);
             Verify();
         }
-
-        /// <summary>
-        /// Verifies page.
-        /// </summary>
-        protected virtual void Verify()
-        {
-            if (!HasTitle())
-            {
-                throw new NoSuchElementException( "Current page is not valid or Title has been changed." );
-            }
-        } 
 
         /// <summary>
         /// Gets the title of current page..
@@ -82,14 +63,22 @@ namespace RozetkaTesting.WebPages
         }
 
         /// <summary>
-        /// Sends keys to the input element on the page.
+        /// Verifies page.
         /// </summary>
-        /// <param name="input">The input element.</param>
-        /// <param name="value">The value.</param>
-        protected void SendKeys(IWebElement input, string value)
+        protected virtual void Verify()
         {
-            input.Clear();
-            input.SendKeys(value);
+            if (!HasTitle())
+            {
+                throw new NoSuchElementException( "Current page is not valid or Title has been changed." );
+            }
+        }
+
+        /// <summary>
+        /// Initializes data.
+        /// </summary>
+        protected void InitializeData()
+        {
+            Initialize();
         }
 
         #endregion

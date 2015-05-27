@@ -1,30 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 
 namespace RozetkaTesting.WebPages.HtmlControls
 {
     /// <summary>
-    /// 
+    /// Provides functionality of TextField control and methods for interaction with that.
     /// </summary>
     class TextField: BaseControl
     {
         #region Constructors
 
+        /// <summary>
+        /// The Constructor which uses 'By' locator.
+        /// </summary>
+        /// <param name="controlDescription">TextField locator.</param>
         public TextField(By controlDescription)
             : base(controlDescription)
         {
         }
 
+        /// <summary>
+        /// The Constructor which uses an object of IWebElement.
+        /// </summary>
+        /// <param name="webElement">IWebElement of TextField.</param>
         public TextField(IWebElement webElement)
             : base(webElement)
         {
         } 
 
         #endregion
+
+        #region Static Methods
 
         /// <summary>
         /// Gets text field by locator.
@@ -54,6 +60,10 @@ namespace RozetkaTesting.WebPages.HtmlControls
             return GetWebElement().GetAttribute("value");
         }
 
+        #endregion
+
+        #region TextField Functionality
+
         /// <summary>
         /// Clears TextField and type specific value.
         /// </summary>
@@ -64,5 +74,7 @@ namespace RozetkaTesting.WebPages.HtmlControls
             textFieldElement.Clear();
             textFieldElement.SendKeys(value);
         }
+
+        #endregion
     }
 }

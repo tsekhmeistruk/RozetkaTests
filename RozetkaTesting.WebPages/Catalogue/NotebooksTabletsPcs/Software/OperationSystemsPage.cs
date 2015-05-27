@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using OpenQA.Selenium;
 using RozetkaTesting.Framework.Core;
 using RozetkaTesting.WebPages.HtmlControls;
 
@@ -44,6 +46,9 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         private string _titleMultilingual = "Многоязычный";
         private string _titleRussian = "Русский";
         private string _titleUkrainian = "Украинский";
+
+        /*----------Products list----------*/
+        private string _priceValueXPath = "//div[@class='g-price-uah']";
 
         #endregion
 
@@ -168,6 +173,14 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
             return Checkbox.ByIdAndTitle(_languageId, _titleUkrainian);
         }
 
+        /*-----List of products-----*/
+
+        private Label Label_PriceOfProducts()
+        {
+            //return Label.ByLocator(By.XPath(_priceValueXPath));
+            return Label.ByLocator(By.XPath(_priceValueXPath));
+        }
+
         #endregion
 
         #region Filter's functionality
@@ -177,10 +190,8 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <summary>
         /// Sets the range of price values.
         /// </summary>
-        public void SetPriceFilter()
+        public void SetPriceFilter(out int minValue, out int maxValue)
         {
-            int minValue;
-            int maxValue;
             GetRandomRange(out minValue, out maxValue);
             Browser.Refresh();
             Browser.ExecuteJavaScript("document.getElementById('price[min]').value = " + minValue + ";");
@@ -193,6 +204,25 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         public void SubmitPriceFilter()
         {
             Button_SubmitPrice().Click();
+        }
+
+        /// <summary>
+        /// Checks the price of products are in the range.
+        /// </summary>
+        /// <param name="minPriceValue">Min value of the range.</param>
+        /// <param name="maxPriceValue">Max value of the range.</param>
+        /// <returns></returns>
+        public bool IsPriceInRange(int minPriceValue, int maxPriceValue)
+        {
+            List<string> prices = Label_PriceOfProducts().GetTexts();
+            foreach (var price in prices)
+            {
+                if (int.Parse(price) > maxPriceValue || int.Parse(price) < minPriceValue)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /*-----Type of users-----*/

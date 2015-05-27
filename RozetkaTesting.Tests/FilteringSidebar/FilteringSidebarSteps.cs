@@ -11,44 +11,52 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     {
         #region Web driver
 
-        private Driver _browser;
+        private static Driver _driver;
 
-        private Driver Browser
+        private static Driver Driver
         {
-            get { return _browser ?? (_browser = FeatureContext.Current.Get<Driver>()); }
+            get { return _driver ?? (_driver = FeatureContext.Current.Get<Driver>()); }
         }
 
         #endregion
+
+        #region Pages initialization
+
+        private readonly OperationSystemsPage _osPage = new OperationSystemsPage(Driver);
+
+        #endregion
+
 
         #region The steps of price filtration
 
         [Given(@"I'm on the Software page")]
         public void GivenImOnThePage()
         {
-            var osPage = new OperationSystemsPage(Browser);
-            ScenarioContext.Current.Set(osPage);
-            osPage.Open();
+            _osPage.Open();
         }
 
-        [Given(@"I input min values and max values")]
+        [Given(@"I input random min values and max values into 'price filter form' from range of possible values")]
         public void GivenIInputValuesAndValues()
         {
-            var osPage = ScenarioContext.Current.Get<OperationSystemsPage>();
-            osPage.SetPriceFilter();
+            int minValue;
+            int maxValue;
+            _osPage.SetPriceFilter(out minValue, out maxValue);
+            ScenarioContext.Current.Set<int>(minValue, "priceMinValue");
+            ScenarioContext.Current.Set<int>(maxValue, "priceMaxValue");
         }
 
         [When(@"I press ok button for submitting price filter")]
         public void WhenIPressButtonForSubmittingPriceFilter()
         {
-            var osPage = ScenarioContext.Current.Get<OperationSystemsPage>();
-            osPage.SubmitPriceFilter();
+            _osPage.SubmitPriceFilter();
         }
 
-        [Then(@"the result page should contains goods which has appropriate price range")]
+        [Then(@"The result page should contains goods which has appropriate price range")]
         public void ThenTheResultPageShouldContainsGoodsWhichHasAppropriatePriceRange()
         {
-            Thread.Sleep(5000);
-            Assert.AreEqual(0,0);
+            var priceMinValue = ScenarioContext.Current.Get<int>("priceMinValue");
+            var priceMaxValue = ScenarioContext.Current.Get<int>("priceMaxValue");
+            Assert.IsTrue(_osPage.IsPriceInRange(priceMinValue, priceMaxValue));
         }
 
         #endregion
