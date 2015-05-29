@@ -50,6 +50,16 @@ namespace RozetkaTesting.WebPages.HtmlControls
             return new Button(By.CssSelector(String.Format("button#{0}", id)));
         }
 
+        /// <summary>
+        /// Gets Button by XPath locator.
+        /// </summary>
+        /// <param name="locator">Button XPAth locator.</param>
+        /// <returns>Button object.</returns>
+        public static Button ByXPath(string locator)
+        {
+            return new Button(By.XPath(locator));
+        }
+
         #endregion
     }
 }

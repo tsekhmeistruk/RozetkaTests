@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
+    <Compile Include="SpecFlow\PageFactory.cs" />
     <Compile Include="SpecFlow\SpecFlowFeatureSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FilteringSidebar\FilteringParametersSidebar.feature.cs">

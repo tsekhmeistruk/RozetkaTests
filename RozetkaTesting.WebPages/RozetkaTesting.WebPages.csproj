@@ -59,6 +59,9 @@
     <Compile Include="HtmlControls\Link.cs" />
     <Compile Include="HtmlControls\RadioButton.cs" />
     <Compile Include="HtmlControls\TextField.cs" />
+    <Compile Include="PageComponents\PriceFilter.cs" />
+    <Compile Include="PageComponents\ProductItem.cs" />
+    <Compile Include="PageComponents\ResultPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

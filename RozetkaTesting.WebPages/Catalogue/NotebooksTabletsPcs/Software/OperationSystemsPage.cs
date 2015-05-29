@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using OpenQA.Selenium;
 using RozetkaTesting.Framework.Core;
 using RozetkaTesting.WebPages.HtmlControls;
+using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
     public sealed class OperationSystemsPage: BasePage
     {
         #region String Values of Tag's Attributes on the Page
-
-        /*----------Price filter----------*/
-        private string _priceMinValueId = "price[min]";
-        private string _priceMaxValueId = "price[max]";
-        private string _submitPriceId = "submitprice";
 
         /*----------Type of user filter----------*/
         private string _typeOfUserId = "sort_52802";
@@ -47,8 +40,11 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         private string _titleRussian = "Русский";
         private string _titleUkrainian = "Украинский";
 
-        /*----------Products list----------*/
-        private string _priceValueXPath = "//div[@class='g-price-uah']";
+        #endregion
+
+        #region Page Components
+
+        private readonly PriceFilter _priceFilter;
 
         #endregion
 
@@ -60,28 +56,12 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <param name="browser">Instance of <see cref="Driver"/> class.</param>
         public OperationSystemsPage(Driver browser) : base(browser)
         {
+            _priceFilter = new PriceFilter();
         }
 
         #endregion
 
         #region Page controls
-
-        /*-----'Price' controls-----*/
-
-        private TextField TextField_MinPriceValue()
-        {
-            return TextField.ById(_priceMinValueId);
-        }
-
-        private TextField TextField_MaxPriceValue()
-        {
-            return TextField.ById(_priceMaxValueId);
-        }
-
-        private Button Button_SubmitPrice()
-        {
-            return Button.ById(_submitPriceId);
-        }
 
         /*-----'Type of users' controls-----*/
 
@@ -173,14 +153,6 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
             return Checkbox.ByIdAndTitle(_languageId, _titleUkrainian);
         }
 
-        /*-----List of products-----*/
-
-        private Label Label_PriceOfProducts()
-        {
-            //return Label.ByLocator(By.XPath(_priceValueXPath));
-            return Label.ByLocator(By.XPath(_priceValueXPath));
-        }
-
         #endregion
 
         #region Filter's functionality
@@ -192,10 +164,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// </summary>
         public void SetPriceFilter(out int minValue, out int maxValue)
         {
-            GetRandomRange(out minValue, out maxValue);
-            Browser.Refresh();
-            Browser.ExecuteJavaScript("document.getElementById('price[min]').value = " + minValue + ";");
-            TextField_MaxPriceValue().ClearAndType(maxValue.ToString(CultureInfo.InvariantCulture));
+            _priceFilter.SetPriceFilter(out minValue, out maxValue);
         }
 
         /// <summary>
@@ -203,7 +172,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// </summary>
         public void SubmitPriceFilter()
         {
-            Button_SubmitPrice().Click();
+            _priceFilter.SubmitPriceFilter();
         }
 
         /// <summary>
@@ -214,16 +183,9 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <returns></returns>
         public bool IsPriceInRange(int minPriceValue, int maxPriceValue)
         {
-            List<string> prices = Label_PriceOfProducts().GetTexts();
-            foreach (var price in prices)
-            {
-                if (int.Parse(price) > maxPriceValue || int.Parse(price) < minPriceValue)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return _priceFilter.IsPriceInRange(minPriceValue, maxPriceValue);
         }
+  
 
         /*-----Type of users-----*/
 
@@ -251,27 +213,6 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
             PageTitle = "Операционные системы - Интернет магазин Rozetka.ua | " +
                         "Операционная система windows в Киеве, Одессе, Харькове, " +
                         "Донецке: цена, отзывы, продажа, купить оптом windows 7";
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void GetPriceRange(out int minValue, out int maxValue)
-        {
-            TextField_MinPriceValue().ClearAndType("_");
-            TextField_MaxPriceValue().ClearAndType("");
-            minValue = int.Parse(TextField_MinPriceValue().GetValue());
-            maxValue = int.Parse(TextField_MaxPriceValue().GetValue());
-        }
-
-        private void GetRandomRange(out int minValue, out int maxValue)
-        {
-            int min, max;
-            var rnd = new Random();
-            GetPriceRange(out min, out max);
-            minValue = rnd.Next(min, max/2);
-            maxValue = rnd.Next(minValue, max);
         }
 
         #endregion

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using OpenQA.Selenium;
 using RozetkaTesting.Framework.Core;
@@ -17,7 +15,6 @@ namespace RozetkaTesting.WebPages.HtmlControls
         // Driver that is initialized and assigned in SpecFlowFeatureSteps.BeforeFeature().
         public static Driver Driver;
         private readonly IWebElement _webElement;
-        private readonly ReadOnlyCollection<IWebElement> _webElements;
         private readonly By _description;
 
         #endregion
@@ -51,19 +48,6 @@ namespace RozetkaTesting.WebPages.HtmlControls
             _webElement = webElement;
         }
 
-        /// <summary>
-        /// Constructor that uses the ReadOnluCollection of IWebElement object to represent the element.
-        /// </summary>
-        /// <param name="webElements">The ReadOnluCollection of IWebElement objects.</param>
-        protected BaseControl(ReadOnlyCollection<IWebElement> webElements)
-        {
-            if (webElements == null)
-            {
-                throw new ArgumentNullException("webElements", @"Element reference for control base was not provided.");
-            }
-            _webElements = webElements;
-        }
-
         #endregion
 
         #region Public Methods
@@ -90,30 +74,6 @@ namespace RozetkaTesting.WebPages.HtmlControls
                 throw new Exception(String.Format("Element {0} not found", _description));
             }
             return webElement;
-        }
-
-        /// <summary>
-        /// Gets web elements.
-        /// </summary>
-        /// <returns>The ReadOnlyCollection of <see cref="IWebElement"/> object.</returns>
-        public ReadOnlyCollection<IWebElement> GetWebElements()
-        {
-            return _webElements ?? GetWebElements(_description);
-        }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public ReadOnlyCollection<IWebElement> GetWebElements(By description)
-        {
-            ReadOnlyCollection<IWebElement> webElements;
-            if (!TryGetWebElements(description, out webElements))
-            {
-                throw new Exception(String.Format("Elements {0} not found", _description));
-            }
-            return webElements;
         }
 
         /// <summary>
@@ -154,16 +114,6 @@ namespace RozetkaTesting.WebPages.HtmlControls
         {
             webElement = Driver.FindElements(description).FirstOrDefault();
             if (webElement != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool TryGetWebElements(By description, out ReadOnlyCollection<IWebElement> webElements)
-        {
-            webElements = Driver.FindElements(description);
-            if (webElements != null)
             {
                 return true;
             }

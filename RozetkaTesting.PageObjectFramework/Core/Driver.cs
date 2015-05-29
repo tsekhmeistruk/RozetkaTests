@@ -13,7 +13,7 @@ namespace RozetkaTesting.Framework.Core
     /// <summary>
     /// Represents the Selenium WebDriver abstraction layer for interacting with the Browser.
     /// </summary>
-    public class Driver : ISearchContext
+    public class Driver 
     {
         #region IWebDriver
 

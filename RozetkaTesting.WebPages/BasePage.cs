@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using RozetkaTesting.Framework.Core;
 
 namespace RozetkaTesting.WebPages
@@ -12,7 +11,7 @@ namespace RozetkaTesting.WebPages
     {
         #region Protected Fields
 
-        protected readonly Driver Browser;
+        protected readonly Driver Driver;
         protected string PageTitle;
         protected Uri PageUri;
 
@@ -23,11 +22,10 @@ namespace RozetkaTesting.WebPages
         /// <summary>
         /// Initializes BasePage class.
         /// </summary>
-        /// <param name="browser">Instance of <see cref="Browser"/> class.</param>
+        /// <param name="browser">Instance of <see cref="Driver"/> class.</param>
         protected BasePage(Driver browser)
         {
-            Browser = browser;
-            PageFactory.InitElements(Browser, this);
+            Driver = browser;
             InitializeData();
         }
 
@@ -49,7 +47,7 @@ namespace RozetkaTesting.WebPages
         /// </summary>
         public void Open()
         {
-            Browser.Navigate(PageUri);
+            Driver.Navigate(PageUri);
             Verify();
         }
 
@@ -59,7 +57,7 @@ namespace RozetkaTesting.WebPages
         /// <returns>Title text.</returns>
         public string GetTitle()
         {
-            return Browser.Title;
+            return Driver.Title;
         }
 
         /// <summary>
@@ -87,7 +85,7 @@ namespace RozetkaTesting.WebPages
 
         private bool HasTitle()
         {
-            return PageTitle == Browser.Title;
+            return PageTitle == Driver.Title;
         }
 
         #endregion

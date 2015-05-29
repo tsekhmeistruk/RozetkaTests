@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace RozetkaTesting.WebPages.HtmlControls
 {
@@ -43,6 +39,16 @@ namespace RozetkaTesting.WebPages.HtmlControls
             return new Label(locator);
         }
 
+        /// <summary>
+        /// Gets Label by XPath locator.
+        /// </summary>
+        /// <param name="locator">Label XPAth locator.</param>
+        /// <returns>Label object.</returns>
+        public static Label ByXPath(string locator)
+        {
+            return new Label(By.XPath(locator));
+        }
+
         #endregion
 
         #region Label Functionality
@@ -54,15 +60,6 @@ namespace RozetkaTesting.WebPages.HtmlControls
         public string GetText()
         {
             return GetWebElement().Text;
-        }
-
-        /// <summary>
-        /// Gets text of labels.
-        /// </summary>
-        /// <returns>The list of Labels text.</returns>
-        public List<string> GetTexts()
-        {
-            return GetWebElements().Select(webElement => Regex.Replace(webElement.Text, @"[^\d]", "")).ToList();
         }
 
         #endregion

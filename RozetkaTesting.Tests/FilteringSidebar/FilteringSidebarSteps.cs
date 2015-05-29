@@ -1,6 +1,5 @@
-﻿using System.Threading;
-using NUnit.Framework;
-using RozetkaTesting.Framework.Core;
+﻿using NUnit.Framework;
+using RozetkaTesting.Tests.SpecFlow;
 using RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software;
 using TechTalk.SpecFlow;
 
@@ -9,23 +8,11 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     [Binding]
     class FilteringSidebarSteps
     {
-        #region Web driver
-
-        private static Driver _driver;
-
-        private static Driver Driver
-        {
-            get { return _driver ?? (_driver = FeatureContext.Current.Get<Driver>()); }
-        }
-
-        #endregion
-
         #region Pages initialization
-
-        private readonly OperationSystemsPage _osPage = new OperationSystemsPage(Driver);
+        
+        private readonly OperationSystemsPage _osPage = PageFactory.Get<OperationSystemsPage>();
 
         #endregion
-
 
         #region The steps of price filtration
 
