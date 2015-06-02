@@ -7,13 +7,14 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using RozetkaTesting.Framework.Helpers;
+using RozetkaTesting.Integrations;
 
 namespace RozetkaTesting.Framework.Core
 {
     /// <summary>
     /// Represents the Selenium WebDriver abstraction layer for interacting with the Browser.
     /// </summary>
-    public class Driver 
+    public class Driver: IDriver 
     {
         #region IWebDriver
 
@@ -179,7 +180,7 @@ namespace RozetkaTesting.Framework.Core
         #endregion
 
         #region ISearchContext
-
+        //TODO 
         /// <summary>
         /// Finds the web element.
         /// </summary>

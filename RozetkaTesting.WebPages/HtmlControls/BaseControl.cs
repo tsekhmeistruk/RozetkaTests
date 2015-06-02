@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using OpenQA.Selenium;
-using RozetkaTesting.Framework.Core;
+using RozetkaTesting.Integrations;
 
 namespace RozetkaTesting.WebPages.HtmlControls
 {
@@ -13,7 +13,7 @@ namespace RozetkaTesting.WebPages.HtmlControls
         #region Fields
 
         // Driver that is initialized and assigned in SpecFlowFeatureSteps.BeforeFeature().
-        public static Driver Driver;
+        public static IDriver Driver;
         private readonly IWebElement _webElement;
         private readonly By _description;
 

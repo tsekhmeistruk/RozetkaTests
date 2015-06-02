@@ -1,7 +1,6 @@
 ﻿using System;
-using RozetkaTesting.Framework.Core;
+using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.HtmlControls;
-using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
@@ -44,7 +43,8 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         #region Page Components
 
-        private readonly PriceFilter _priceFilter;
+        private readonly IPriceFilterComponent _priceFilterComponent;
+        private readonly IResultPageComponent _resultPageComponent;
 
         #endregion
 
@@ -53,10 +53,14 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <summary>
         /// Initializes new instance of <see cref="OperationSystemsPage"/> class.
         /// </summary>
-        /// <param name="browser">Instance of <see cref="Driver"/> class.</param>
-        public OperationSystemsPage(Driver browser) : base(browser)
+        /// <param name="driver">Implementation of <see cref="IDriver"/>.</param>
+        /// <param name="priceFilterComponent">The component of the price filtering.</param>
+        /// <param name="resultPageComponent">The component of the result page.</param>
+        public OperationSystemsPage(IDriver driver, IPriceFilterComponent priceFilterComponent,
+            IResultPageComponent resultPageComponent) : base(driver)
         {
-            _priceFilter = new PriceFilter();
+            _priceFilterComponent = priceFilterComponent;
+            _resultPageComponent = resultPageComponent;
         }
 
         #endregion
@@ -164,7 +168,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// </summary>
         public void SetPriceFilter(out int minValue, out int maxValue)
         {
-            _priceFilter.SetPriceFilter(out minValue, out maxValue);
+            _priceFilterComponent.SetPriceFilter(out minValue, out maxValue);
         }
 
         /// <summary>
@@ -172,7 +176,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// </summary>
         public void SubmitPriceFilter()
         {
-            _priceFilter.SubmitPriceFilter();
+            _priceFilterComponent.SubmitPriceFilter();
         }
 
         /// <summary>
@@ -183,9 +187,8 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <returns></returns>
         public bool IsPriceInRange(int minPriceValue, int maxPriceValue)
         {
-            return _priceFilter.IsPriceInRange(minPriceValue, maxPriceValue);
+            return _priceFilterComponent.IsPriceInRange(minPriceValue, maxPriceValue);
         }
-  
 
         /*-----Type of users-----*/
 
@@ -199,7 +202,39 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         #endregion
 
-        //TODO Implement other functionality on this page.
+        #region PageResult functionality
+
+        /// <summary>
+        /// Adds random product from result page to the cart and return its price.
+        /// </summary>
+        /// <returns>Price value of the product which was been added.</returns>
+        public int AddProductAndReturnPrice()
+        {
+            return int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
+        }
+
+        /// <summary>
+        /// Adds product from result page to the cart by index and return its price.
+        /// </summary>
+        /// <param name="indexOfItem">Index of the item.</param>
+        /// <returns>Price value of the product which was been added.</returns>
+        public int AddProductAndReturnPrice(int indexOfItem)
+        {
+            return int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
+        }
+
+        /// <summary>
+        /// Gets the title of the result page.
+        /// </summary>
+        /// <returns>Text of the title on the result page.</returns>
+        public string GetTitleOfResultPage()
+        {
+            return _resultPageComponent.GetTitleOfResultPage();
+        }
+
+        #endregion
+
+        //TODO Implement other functionality for this page.
 
         #region Override Methods
 

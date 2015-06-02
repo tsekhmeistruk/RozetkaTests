@@ -9,6 +9,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         //Number of item(product) on the Result Page.
         private readonly int _index;
+
         private string _labelPriceXPath;
         private string _buttonBuyXPath;
 
@@ -16,6 +17,10 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor of ProductItem which uses index of item parameter.
+        /// </summary>
+        /// <param name="index"></param>
         public ProductItem(int index)
         {
             _index = index;
@@ -34,12 +39,6 @@ namespace RozetkaTesting.WebPages.PageComponents
         private Button Button_Buy()
         {
             return Button.ByXPath(_buttonBuyXPath);
-        }
-
-        private void Initialize()
-        {
-            _labelPriceXPath = String.Format("(//div[@class='g-price-uah'])[{0}]", _index);
-            _buttonBuyXPath = String.Format("(//button[@name='topurchasesfromcatalog'])[{0}]", _index);
         }
 
         #endregion
@@ -63,6 +62,26 @@ namespace RozetkaTesting.WebPages.PageComponents
             return Label_Price().GetText();
         }
 
+        /// <summary>
+        /// Gets the index of item.
+        /// </summary>
+        /// <returns>Number in order.</returns>
+        public int GetIndex()
+        {
+            return _index;
+        }
+
         #endregion
+
+        #region Private Methods
+
+        private void Initialize()
+        {
+            _labelPriceXPath = String.Format("(//div[@class='g-price-uah'])[{0}]", _index);
+            _buttonBuyXPath = String.Format("(//button[@name='topurchasesfromcatalog'])[{0}]", _index);
+        }
+
+        #endregion
+
     }
 }

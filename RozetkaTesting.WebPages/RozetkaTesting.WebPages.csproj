@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Catalogue\NotebooksTabletsPcs\Software\OperationSystemsPage.cs" />
     <Compile Include="BasePage.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="HtmlControls\BaseControl.cs" />
     <Compile Include="HtmlControls\Button.cs" />
     <Compile Include="HtmlControls\Checkbox.cs" />
@@ -59,15 +60,16 @@
     <Compile Include="HtmlControls\Link.cs" />
     <Compile Include="HtmlControls\RadioButton.cs" />
     <Compile Include="HtmlControls\TextField.cs" />
-    <Compile Include="PageComponents\PriceFilter.cs" />
+    <Compile Include="PageComponents\HeaderComponent.cs" />
+    <Compile Include="PageComponents\PriceFilterComponent.cs" />
     <Compile Include="PageComponents\ProductItem.cs" />
-    <Compile Include="PageComponents\ResultPage.cs" />
+    <Compile Include="PageComponents\ResultPageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RozetkaTesting.PageObjectFramework\RozetkaTesting.Framework.csproj">
-      <Project>{2d82e28d-de65-4800-b61b-f4d69d241efd}</Project>
-      <Name>RozetkaTesting.Framework</Name>
+    <ProjectReference Include="..\RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj">
+      <Project>{d2ce248b-8312-435d-89be-0101a003f71c}</Project>
+      <Name>RozetkaTesting.Integrations</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

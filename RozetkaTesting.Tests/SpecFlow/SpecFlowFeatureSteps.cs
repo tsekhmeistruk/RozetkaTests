@@ -1,4 +1,5 @@
 ﻿using RozetkaTesting.Framework.Core;
+using RozetkaTesting.Integrations;
 using TechTalk.SpecFlow;
 
 namespace RozetkaTesting.Tests.SpecFlow
@@ -11,14 +12,14 @@ namespace RozetkaTesting.Tests.SpecFlow
         [BeforeFeature]
         public static void BeforeFeature()
         {
-            FeatureContext.Current.Set(new Driver());
-            WebPages.HtmlControls.BaseControl.Driver = FeatureContext.Current.Get<Driver>();
+            FeatureContext.Current.Set((IDriver)new Driver());
+            WebPages.HtmlControls.BaseControl.Driver = FeatureContext.Current.Get<IDriver>();
         }
 
         [AfterFeature]
         public static void AfterFeature()
         {
-            FeatureContext.Current.Get<Driver>().Quit();
+            FeatureContext.Current.Get<IDriver>().Quit();
         }
 
         [BeforeScenario]

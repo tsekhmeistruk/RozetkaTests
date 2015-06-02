@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using RozetkaTesting.Framework.Core;
+using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages;
+using RozetkaTesting.WebPages.PageComponents;
 using TechTalk.SpecFlow;
 
 namespace RozetkaTesting.Tests.SpecFlow
@@ -51,10 +52,21 @@ namespace RozetkaTesting.Tests.SpecFlow
                 return parameterInfo.DefaultValue;
             }
 
-            if (parameterInfo.ParameterType == typeof (Driver))
+            if (parameterInfo.ParameterType == typeof (IDriver))
             {
-                return FeatureContext.Current.Get<Driver>();
+                return FeatureContext.Current.Get<IDriver>();
             }
+
+            if (parameterInfo.ParameterType == typeof(IPriceFilterComponent))
+            {
+                return new PriceFilterComponent();
+            }
+
+            if (parameterInfo.ParameterType == typeof(IResultPageComponent))
+            {
+                return new ResultPageComponent();
+            }
+
             else
             {
                 return null;

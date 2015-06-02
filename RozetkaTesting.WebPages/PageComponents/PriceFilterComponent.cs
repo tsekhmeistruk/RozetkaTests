@@ -1,22 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using OpenQA.Selenium;
+using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.PageComponents
 {
-    public class PriceFilter
+    public class PriceFilterComponent: IPriceFilterComponent
     {
         #region String Attribute Values of Controls
 
-        private string _priceMinValueId = "price[min]";
-        private string _priceMaxValueId = "price[max]";
-        private string _submitPriceId = "submitprice";
+        private string _priceMinValueId;
+        private string _priceMaxValueId;
+        private string _submitPriceId;
 
-        private string _priceValueXPath = "//div[@class='g-price-uah']";
+        private string _priceValueXPath;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Constructor for PriceFilter component.
+        /// </summary>
+        public PriceFilterComponent()
+        {
+            Initialize();
+        }
 
         #endregion
 
@@ -44,6 +57,8 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// <summary>
         /// Sets the range of price values.
         /// </summary>
+        /// <param name="minValue">Min value in the range.</param>
+        /// <param name="maxValue">Max value in the range.</param>
         public void SetPriceFilter(out int minValue, out int maxValue)
         {
             GetRandomRange(out minValue, out maxValue);
@@ -94,10 +109,9 @@ namespace RozetkaTesting.WebPages.PageComponents
         private void GetRandomRange(out int minValue, out int maxValue)
         {
             int min, max;
-            var rnd = new Random();
             GetPriceRange(out min, out max);
-            minValue = rnd.Next(min, max / 2);
-            maxValue = rnd.Next(minValue, max);
+            minValue = RandomHelper.GetRandomValue(min, max / 2);
+            maxValue = RandomHelper.GetRandomValue(minValue, max);
         }
 
         private IEnumerable<string> GetListOfPrices()
@@ -105,6 +119,15 @@ namespace RozetkaTesting.WebPages.PageComponents
             var elementsWithPrice = BaseControl.Driver.FindElements(By.XPath(_priceValueXPath));
             return elementsWithPrice.Select(webElement => Regex.Replace(webElement.Text, @"[^\d]", "")).ToList();
         }
+
+        private void Initialize()
+        {
+            _priceMinValueId = "price[min]";
+            _priceMaxValueId = "price[max]";
+            _submitPriceId = "submitprice";
+            _priceValueXPath = "//div[@class='g-price-uah']";
+        }
+
         #endregion
     }
 }

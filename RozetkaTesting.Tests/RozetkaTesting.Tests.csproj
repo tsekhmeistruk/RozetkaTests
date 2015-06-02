@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
+    <Compile Include="FilteringSidebar\TestTempFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestTempFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="FilteringSidebar\TestTempFeatureSteps.cs" />
     <Compile Include="SpecFlow\PageFactory.cs" />
     <Compile Include="SpecFlow\SpecFlowFeatureSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +71,10 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FilteringSidebar\TestTempFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TestTempFeature.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="FilteringSidebar\FilteringParametersSidebar.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -72,6 +82,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj">
+      <Project>{d2ce248b-8312-435d-89be-0101a003f71c}</Project>
+      <Name>RozetkaTesting.Integrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RozetkaTesting.PageObjectFramework\RozetkaTesting.Framework.csproj">
       <Project>{2d82e28d-de65-4800-b61b-f4d69d241efd}</Project>
       <Name>RozetkaTesting.Framework</Name>

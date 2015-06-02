@@ -1,6 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
-using RozetkaTesting.Framework.Core;
+using RozetkaTesting.Integrations;
 
 namespace RozetkaTesting.WebPages
 {
@@ -11,7 +11,7 @@ namespace RozetkaTesting.WebPages
     {
         #region Protected Fields
 
-        protected readonly Driver Driver;
+        protected readonly IDriver Driver;
         protected string PageTitle;
         protected Uri PageUri;
 
@@ -22,10 +22,10 @@ namespace RozetkaTesting.WebPages
         /// <summary>
         /// Initializes BasePage class.
         /// </summary>
-        /// <param name="browser">Instance of <see cref="Driver"/> class.</param>
-        protected BasePage(Driver browser)
+        /// <param name="driver">Implementation of <see cref="IDriver"/>.</param>
+        protected BasePage(IDriver driver)
         {
-            Driver = browser;
+            Driver = driver;
             InitializeData();
         }
 

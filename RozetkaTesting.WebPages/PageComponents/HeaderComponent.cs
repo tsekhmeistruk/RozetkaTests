@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace RozetkaTesting.WebPages.PageComponents
 {
-    public class ResultPage
+    public class HeaderComponent
     {
-        private List<ProductItem> _productItems;
-
-        public ResultPage()
-        {
-            //TODO
-        }
     }
 }

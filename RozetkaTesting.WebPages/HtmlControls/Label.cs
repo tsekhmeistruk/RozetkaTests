@@ -49,6 +49,16 @@ namespace RozetkaTesting.WebPages.HtmlControls
             return new Label(By.XPath(locator));
         }
 
+        /// <summary>
+        /// Gets Label by CSS selector.
+        /// </summary>
+        /// <param name="locator">CSS selector.</param>
+        /// <returns>Label object.</returns>
+        public static Label ByCss(string locator)
+        {
+            return new Label(By.CssSelector(locator));
+        }
+
         #endregion
 
         #region Label Functionality
