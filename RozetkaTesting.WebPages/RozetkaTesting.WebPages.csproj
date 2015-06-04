@@ -65,6 +65,7 @@
     <Compile Include="PageComponents\ProductItem.cs" />
     <Compile Include="PageComponents\ResultPageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignInPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj">
@@ -73,15 +74,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Catalogue\NotebooksTabletsPcs\AccessoriesForNotebooksAndPcs\" />
-    <Folder Include="Catalogue\NotebooksTabletsPcs\AccessoriesForTablets\" />
-    <Folder Include="Catalogue\NotebooksTabletsPcs\GamesGiftsGadgets\" />
     <Folder Include="Catalogue\NotebooksTabletsPcs\Hardware\" />
     <Folder Include="Catalogue\NotebooksTabletsPcs\Notebooks\" />
-    <Folder Include="Catalogue\NotebooksTabletsPcs\OfficeEquipment\" />
     <Folder Include="Catalogue\NotebooksTabletsPcs\Pcs\" />
-    <Folder Include="Catalogue\NotebooksTabletsPcs\Services\" />
-    <Folder Include="Catalogue\NotebooksTabletsPcs\TabletsEbooks\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

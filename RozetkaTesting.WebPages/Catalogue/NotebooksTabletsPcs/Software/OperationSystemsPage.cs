@@ -1,6 +1,7 @@
 ﻿using System;
 using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.HtmlControls;
+using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
@@ -45,6 +46,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         private readonly IPriceFilterComponent _priceFilterComponent;
         private readonly IResultPageComponent _resultPageComponent;
+        private readonly IHeaderComponent _header;
 
         #endregion
 
@@ -56,11 +58,16 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <param name="driver">Implementation of <see cref="IDriver"/>.</param>
         /// <param name="priceFilterComponent">The component of the price filtering.</param>
         /// <param name="resultPageComponent">The component of the result page.</param>
-        public OperationSystemsPage(IDriver driver, IPriceFilterComponent priceFilterComponent,
-            IResultPageComponent resultPageComponent) : base(driver)
+        /// <param name="header">The component of the header.</param>
+        public OperationSystemsPage(IDriver driver, 
+                                    IPriceFilterComponent priceFilterComponent,
+                                    IResultPageComponent resultPageComponent, 
+                                    IHeaderComponent header) 
+                                    :base(driver)
         {
             _priceFilterComponent = priceFilterComponent;
             _resultPageComponent = resultPageComponent;
+            _header = header;
         }
 
         #endregion
@@ -251,5 +258,10 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         }
 
         #endregion
+
+        public void OpenCart()
+        {
+            _header.OpenCart();
+        }
     }
 }

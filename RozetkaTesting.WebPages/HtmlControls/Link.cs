@@ -70,5 +70,18 @@ namespace RozetkaTesting.WebPages.HtmlControls
         }
 
         #endregion
+
+        #region Link Functionality
+
+        /// <summary>
+        /// Gets Link text.
+        /// </summary>
+        /// <returns>Text of the current Link.</returns>
+        public string GetText()
+        {
+            return GetWebElement().Text;
+        }
+
+        #endregion
     }
 }

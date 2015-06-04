@@ -8,11 +8,13 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     [Binding]
     class FilteringSidebarSteps
     {
-        #region Pages initialization
-        
-        private readonly OperationSystemsPage _osPage = PageFactory.Get<OperationSystemsPage>();
+        private OperationSystemsPage _osPage;
 
-        #endregion
+        [BeforeScenario]
+        private void Initialize()
+        {
+            _osPage = PageFactory.Get<OperationSystemsPage>();
+        }
 
         #region The steps of price filtration
 

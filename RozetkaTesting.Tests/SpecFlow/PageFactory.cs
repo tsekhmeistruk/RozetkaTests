@@ -64,7 +64,12 @@ namespace RozetkaTesting.Tests.SpecFlow
 
             if (parameterInfo.ParameterType == typeof(IResultPageComponent))
             {
-                return new ResultPageComponent();
+                return new ResultPageComponent(FeatureContext.Current.Get<IDriver>());
+            }
+
+            if (parameterInfo.ParameterType == typeof(IHeaderComponent))
+            {
+                return new HeaderComponent();
             }
 
             else

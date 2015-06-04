@@ -12,7 +12,7 @@ namespace RozetkaTesting.Tests.SpecFlow
         [BeforeFeature]
         public static void BeforeFeature()
         {
-            FeatureContext.Current.Set((IDriver)new Driver());
+            FeatureContext.Current.Set(DriverFactory.GetDriver());
             WebPages.HtmlControls.BaseControl.Driver = FeatureContext.Current.Get<IDriver>();
         }
 

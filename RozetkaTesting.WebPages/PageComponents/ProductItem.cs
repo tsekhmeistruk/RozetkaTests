@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.PageComponents
@@ -12,6 +13,8 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private string _labelPriceXPath;
         private string _buttonBuyXPath;
+        private string _linkTitle;
+        private string _linkWishList;
 
         #endregion
 
@@ -39,6 +42,11 @@ namespace RozetkaTesting.WebPages.PageComponents
         private Button Button_Buy()
         {
             return Button.ByXPath(_buttonBuyXPath);
+        }
+
+        private Link Link_Title()
+        {
+            return Link.ByLocator(By.XPath(_linkTitle));
         }
 
         #endregion
@@ -71,17 +79,27 @@ namespace RozetkaTesting.WebPages.PageComponents
             return _index;
         }
 
+        /// <summary>
+        /// Gets text of link.
+        /// </summary>
+        /// <returns>Text of link.</returns>
+        public string GetProductTitle()
+        {
+            return Link_Title().GetText();
+        }
+
         #endregion
 
         #region Private Methods
 
         private void Initialize()
         {
-            _labelPriceXPath = String.Format("(//div[@class='g-price-uah'])[{0}]", _index);
-            _buttonBuyXPath = String.Format("(//button[@name='topurchasesfromcatalog'])[{0}]", _index);
+            _labelPriceXPath = String.Format("(//div[@name='goods_list']//div[@class='g-price-uah'])[{0}]", _index);
+            _buttonBuyXPath = String.Format("(//div[@name='goods_list']//button[@name='topurchasesfromcatalog'])[{0}]", _index);
+            _linkTitle = String.Format("(//div[@name='goods_list']//div[@class='g-i-tile-i-title clearfix']/a)[{0}]", _index);
+            _linkWishList = String.Format("(//div[@name='goods_list']//*[@class='g-wishlist'])[{0}]", _index);
         }
 
         #endregion
-
     }
 }

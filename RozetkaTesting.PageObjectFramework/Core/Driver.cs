@@ -121,7 +121,7 @@ namespace RozetkaTesting.Framework.Core
         /// <summary>
         /// Gets screenshot.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Screenshot.</returns>
         public Screenshot GetScreenshot()
         {
             return ((ITakesScreenshot) WebDriver).GetScreenshot();
@@ -170,7 +170,7 @@ namespace RozetkaTesting.Framework.Core
         /// </summary>
         /// <param name="javaScript">The JavaScript code.</param>
         /// <param name="args">The specific arguments.</param>
-        /// <returns>The object/</returns>
+        /// <returns>The object.</returns>
         public object ExecuteJavaScript(string javaScript, params object[] args)
         {
             var javaScriptExecutor = (IJavaScriptExecutor) WebDriver;

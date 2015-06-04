@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BrowserType.cs" />
     <Compile Include="IDriver.cs" />
+    <Compile Include="IHeaderComponent.cs" />
     <Compile Include="IPriceFilterComponent.cs" />
     <Compile Include="IResultPageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

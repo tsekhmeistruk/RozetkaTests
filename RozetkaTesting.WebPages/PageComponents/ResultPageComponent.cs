@@ -8,10 +8,15 @@ using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.PageComponents
 {
+    /// <summary>
+    /// Provides functionality of page part which display specific category of products.
+    /// For example: Notebooks, SSD, Operation systems etc. 
+    /// </summary>
     public class ResultPageComponent: IResultPageComponent
     {
         #region Private Fields and Properties
 
+        private readonly IDriver _driver;
         private string _titleResultPageCss;
 
         private List<ProductItem> _productItems;
@@ -27,8 +32,13 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         #region Constructor
 
-        public ResultPageComponent()
+        /// <summary>
+        /// Constructor of ResultPageComponent which uses IDriver object.
+        /// </summary>
+        /// <param name="driver">Instance of <see cref="IDriver"/>.</param>
+        public ResultPageComponent(IDriver driver)
         {
+            _driver = driver;
             Initialize();
         }
 
@@ -97,7 +107,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private int GetNumberOfProductItems()
         {
-            return BaseControl.Driver.FindElements(By.XPath("//*[@class='g-i-tile g-i-tile-catalog']")).Count;
+            return _driver.FindElements(By.XPath("//*[@class='g-i-tile g-i-tile-catalog']")).Count;
         }
 
         #endregion
