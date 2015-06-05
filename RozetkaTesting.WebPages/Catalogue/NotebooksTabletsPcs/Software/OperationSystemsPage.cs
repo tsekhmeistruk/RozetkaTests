@@ -1,7 +1,6 @@
 ﻿using System;
 using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.HtmlControls;
-using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
@@ -241,7 +240,17 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 
         #endregion
 
-        //TODO Implement other functionality for this page.
+        #region Header Functionality
+
+        /// <summary>
+        /// Opens cart as pop-up window.
+        /// </summary>
+        public void OpenCart()
+        {
+            _header.OpenCart();
+        }
+
+        #endregion
 
         #region Override Methods
 
@@ -258,10 +267,5 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         }
 
         #endregion
-
-        public void OpenCart()
-        {
-            _header.OpenCart();
-        }
     }
 }
