@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Support.UI;
 using RozetkaTesting.Framework.Helpers;
 using RozetkaTesting.Integrations;
 
@@ -14,8 +14,15 @@ namespace RozetkaTesting.Framework.Core
     /// <summary>
     /// Represents the Selenium WebDriver abstraction layer for interacting with the Browser.
     /// </summary>
-    public class Driver: IDriver 
+    public class Driver: IDriver
     {
+        #region Config parameters
+
+        private static int _implicitWait;
+        private static int _defaultWait;
+
+        #endregion
+
         #region IWebDriver
 
         private IWebDriver _webDriver;
@@ -23,6 +30,18 @@ namespace RozetkaTesting.Framework.Core
         private IWebDriver WebDriver
         {
             get { return _webDriver ?? StartWebDriver(); }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Constructor of the driver w/o parameters.
+        /// </summary>
+        public Driver()
+        {
+            Initialize();
         }
 
         #endregion
@@ -64,7 +83,7 @@ namespace RozetkaTesting.Framework.Core
 
         #endregion
 
-        #region WebDriver functionality
+        #region IDriver Implementation
 
         /// <summary>
         /// Initializes the WebDriver.
@@ -177,6 +196,26 @@ namespace RozetkaTesting.Framework.Core
             return javaScriptExecutor.ExecuteScript(javaScript, args);
         }
 
+        /// <summary>
+        /// Driver waits until the element is appear.
+        /// </summary>
+        /// <param name="elementLocator">Locator of element.</param>
+        /// <param name="seconds">Time limit for waiting.</param>
+        public void WaitUntilElementPresent(By elementLocator, int seconds)
+        {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(seconds));
+            var element = wait.Until(ExpectedConditions.ElementIsVisible(elementLocator));
+        }
+
+        /// <summary>
+        /// Driver waits until the element is appear during default time for waiting.
+        /// </summary>
+        /// <param name="elementLocator">Locator of element.</param>
+        public void WaitUntilElementPresent(By elementLocator)
+        {
+            WaitUntilElementPresent(elementLocator, _defaultWait);
+        }
+
         #endregion
 
         #region ISearchContext
@@ -231,7 +270,7 @@ namespace RozetkaTesting.Framework.Core
             }
 
             _webDriver.Manage().Window.Maximize();
-            SetImplicitWait(10); //TODO rewrite
+            SetImplicitWait(_implicitWait);
             return _webDriver;
         }
 
@@ -265,7 +304,7 @@ namespace RozetkaTesting.Framework.Core
 
         private BrowserType GetBrowserType()
         {
-            string browser = ReadBrowserTypeFromConfig();
+            string browser = ConfigHelper.GetBrowserName();
 
             switch (browser)
             {
@@ -283,14 +322,18 @@ namespace RozetkaTesting.Framework.Core
             }
         }
 
-        private string ReadBrowserTypeFromConfig()
+        private void Initialize()
         {
-            Dictionary<string, string> browserConfig =
-                                       JsonHelper.Deserialize("../../../RozetkaTesting.PageObjectFramework/External/BrowserConfig.json");
-            string browser;
-            browserConfig.TryGetValue("type", out browser);
-            return browser;
-        } 
+            if (!int.TryParse(ConfigHelper.GetImplicitWaitTime(), out _implicitWait))
+            {
+                throw new Exception("Incorrect config data of Implicit waiting time.");
+            }
+
+            if (!int.TryParse(ConfigHelper.GetDefaultWaitTime(), out _defaultWait))
+            {
+                throw new Exception("Incorrect config data of Default waiting time.");
+            }
+        }
 
         #endregion
     }

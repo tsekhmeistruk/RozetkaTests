@@ -18,9 +18,11 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private readonly IDriver _driver;
         private string _titleResultPageCss;
+        private string _catalogueItem;
+        private string _idCartPopUp;
 
         private List<ProductItem> _productItems;
-        private IEnumerable<ProductItem> ProductItems
+        private List<ProductItem> ProductItems
         {
             get
             {
@@ -59,21 +61,26 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// Gets the title of the result page.
         /// </summary>
         /// <returns>Text of the title on the result page.</returns>
+        //TODO Expand this method by overloads with next input parameters: product name | product price 
         public string GetTitleOfResultPage()
         {
             return Label_TitleResultPage().GetText();
         }
 
         /// <summary>
-        /// Adds product from result page to the cart by index and return its price.
+        /// Adds product to the cart by index and return its price.
         /// </summary>
-        /// <param name="indexOfItem">Index of the item.</param>
+        /// <param name="indexOfItem">Index of the item its position number of the product on the current page.</param>
         /// <returns>Price value of the product which was been added.</returns>
         public string AddProductToCartAndReturnPrice(int indexOfItem)
         {
-            return ProductItems.Where(p => p.GetIndex() == indexOfItem)
+            var price = ProductItems.Where(p => p.GetIndex() == indexOfItem)
                     .Select(x => Regex.Replace(x.GetPrice(), @"[^\d]", ""))
                     .FirstOrDefault();
+
+            ProductItems[indexOfItem - 1].AddToCart();
+            WaitUntilCartPopUpIsAppear();
+            return price;
         }
 
         /// <summary>
@@ -93,6 +100,8 @@ namespace RozetkaTesting.WebPages.PageComponents
         private void Initialize()
         {
             _titleResultPageCss = "#title_page .c-cols-inner-l > h1";
+            _idCartPopUp = "cart-popup";
+            _catalogueItem = "//div[@class='g-i-tile g-i-tile-catalog']";
         }
 
         private List<ProductItem> GetProductItems()
@@ -107,7 +116,12 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private int GetNumberOfProductItems()
         {
-            return _driver.FindElements(By.XPath("//*[@class='g-i-tile g-i-tile-catalog']")).Count;
+            return _driver.FindElements(By.XPath(_catalogueItem)).Count;
+        }
+
+        private void WaitUntilCartPopUpIsAppear()
+        {
+            _driver.WaitUntilElementPresent(By.Id(_idCartPopUp));
         }
 
         #endregion

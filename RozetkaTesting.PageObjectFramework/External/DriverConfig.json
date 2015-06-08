@@ -1,0 +1,7 @@
+﻿{
+    "type": "Chrome",
+    "default-wait": "10",
+    "implicit-wait":  "15"
+}
+
+

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.HtmlControls;
@@ -13,18 +9,31 @@ namespace RozetkaTesting.WebPages
     {
         #region Private Fields
 
-        private string _labelEmptyCart;
+        private string _cartItemsXpath;
+        private string _labelEmptyCartXpath;
+        private string _emptyCart;
 
         #endregion
 
         #region CartPage Functionality
 
-
+        /// <summary>
+        /// Gets the number of products in the Cart.
+        /// </summary>
+        /// <returns>Number of products.</returns>
+        public int GetCount()
+        {
+            return GetCartItemsCount();
+        }
 
         #endregion
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes the new instance of the CartPage class.
+        /// </summary>
+        /// <param name="driver"></param>
         public CartPage(IDriver driver) : base(driver)
         {
         }
@@ -33,7 +42,7 @@ namespace RozetkaTesting.WebPages
 
         private Label Label_EmptyCart()
         {
-            return Label.ByXPath(_labelEmptyCart);
+            return Label.ByXPath(_labelEmptyCartXpath);
         }
 
         #region Override Methods
@@ -43,7 +52,9 @@ namespace RozetkaTesting.WebPages
             PageUri = new Uri("https://my.rozetka.com.ua/cart/");
             PageTitle = "ROZETKA — Корзина";
 
-            _labelEmptyCart = "//h2[text()='Корзина пуста']";
+            _cartItemsXpath = "//div[@class='clearfix cart-i active']";
+            _labelEmptyCartXpath = "//h2[text()='Корзина пуста']";
+            _emptyCart = "Корзина пуста";
         }
 
         #endregion
@@ -54,7 +65,7 @@ namespace RozetkaTesting.WebPages
         {
             try
             {
-                return Label_EmptyCart().GetText() != "Корзина пуста";
+                return Label_EmptyCart().GetText() != _emptyCart;
             }
             catch (Exception)
             {
@@ -64,7 +75,7 @@ namespace RozetkaTesting.WebPages
 
         private int GetCartItemsCount()
         {
-            return Driver.FindElements(By.XPath("//*[@class='g-i-tile g-i-tile-catalog']")).Count;
+            return Driver.FindElements(By.XPath(_cartItemsXpath)).Count;
         }
 
         #endregion
