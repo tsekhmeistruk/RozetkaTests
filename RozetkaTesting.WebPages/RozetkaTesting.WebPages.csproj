@@ -51,6 +51,7 @@
     <Compile Include="CartPage.cs" />
     <Compile Include="Catalogue\NotebooksTabletsPcs\Software\OperationSystemsPage.cs" />
     <Compile Include="BasePage.cs" />
+    <Compile Include="Helpers\Parser.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="HtmlControls\BaseControl.cs" />
     <Compile Include="HtmlControls\Button.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="ProfilePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInPage.cs" />
+    <Compile Include="SignUpPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj">

@@ -7,13 +7,14 @@ namespace RozetkaTesting.WebPages
 {
     public class SignInPage: BasePage
     {
-        #region XPath strings of web elements
-        
-        private string _labelHeader;
-        private string _nameName;
-        private string _emailName;
+        #region Private Fields
+
+        private string _loginName;
         private string _passwordName;
         private string _buttonSignIn;
+
+        private string _invalidPasswordErrorXpath;
+        private string _invalidEmailErrorXpath;
 
         #endregion
 
@@ -31,19 +32,9 @@ namespace RozetkaTesting.WebPages
 
         #region Controls
 
-        private Label Label_Header()
-        {
-            return Label.ByXPath(_labelHeader);
-        }
-
-        private TextField Input_Name()
-        {
-            return TextField.ByLocator(By.XPath(GetXpathByName(_nameName)));   
-        }
-
         private TextField Input_Email()
         {
-            return TextField.ByLocator(By.XPath(GetXpathByName(_emailName)));
+            return TextField.ByLocator(By.XPath(GetXpathByName(_loginName)));
         }
 
         private TextField Input_Password()
@@ -53,7 +44,7 @@ namespace RozetkaTesting.WebPages
 
         private Button Button_SignIn()
         {
-            return Button.ByText(_buttonSignIn);
+            return Button.ByXPath(_buttonSignIn);
         }
 
         #endregion
@@ -61,40 +52,57 @@ namespace RozetkaTesting.WebPages
         #region SignInPage Functionality
 
         /// <summary>
-        /// Fills registration form.
+        /// Fills SignIn form.
         /// </summary>
-        /// <param name="name">Registration name.</param>
-        /// <param name="email">Registration email.</param>
-        /// <param name="password">Registration password.</param>
-        public void FillRegistrationForm(string name, string email, string password)
+        /// <param name="email">User email.</param>
+        /// <param name="password">User password.</param>
+        public void FillRegistrationForm(string email, string password)
         {
-            Input_Name().ClearAndType(name);
             Input_Email().ClearAndType(email);
             Input_Password().ClearAndType(password);
         }
 
         /// <summary>
-        /// Submits registration form.
+        /// Submits SignIn form.
         /// </summary>
         public void SubmitRegistration()
         {
             Button_SignIn().Click();
         }
 
+        /// <summary>
+        /// Checks the appearance of error message about invalid password.
+        /// </summary>
+        /// <returns>True if the error message is appear.</returns>
+        public bool IsInvalidPasswordErrorAppear()
+        {
+            return (Driver.FindElements(By.XPath(_invalidPasswordErrorXpath)).Count == 1);
+        }
+
+        /// <summary>
+        /// Checks the appearance of error message about invalid email.
+        /// </summary>
+        /// <returns>True if the error message is appear.</returns>
+        public bool IsInvalidEmailErrorAppear()
+        {
+            return (Driver.FindElements(By.XPath(_invalidEmailErrorXpath)).Count == 1);
+        }
+
         #endregion
 
-        #region Overrided Methods
+        #region Override Methods
 
         protected override void Initialize()
         {
-            PageTitle = "ROZETKA — Регистрация";
-            PageUri = new Uri("https://my.rozetka.com.ua/signup/");
+            PageTitle = "ROZETKA — Вход в интернет-магазин";
+            PageUri = new Uri("https://my.rozetka.com.ua/signin/");
 
-            _labelHeader = "//*[@class='clearfix signup']/h1";
-            _nameName = "title";
-            _emailName = "email";
+
+            _loginName = "login";
             _passwordName = "password";
-            _buttonSignIn = "Зарегистрироваться";
+            _buttonSignIn = "//button[@class='btn-link btn-link-blue btn-link-sign']";
+            _invalidPasswordErrorXpath = "//div[@class='pos-fix sprite-side message code5']";
+            _invalidEmailErrorXpath = "//div[@class='pos-fix sprite-side message code4']";
         }
 
         #endregion

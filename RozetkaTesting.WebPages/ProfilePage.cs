@@ -21,6 +21,9 @@ namespace RozetkaTesting.WebPages
         private string _buttonSaveChanges;
         private string _linkCancel;
 
+        /*-----Exit-----*/
+        private string _linkExit;
+
         #endregion
 
         #region Constructor
@@ -75,6 +78,12 @@ namespace RozetkaTesting.WebPages
             return Link.ByLocator(By.XPath(_linkCancel));
         }
 
+        /*-----Exit-----*/
+        private Link Link_Exit()
+        {
+            return Link.ByText(_linkExit);
+        }
+
         #endregion
 
         #region ProfilePage Functionality
@@ -125,6 +134,8 @@ namespace RozetkaTesting.WebPages
 
             _buttonSaveChanges = "//*[@id='change_password_block']//*[text()='Сохранить']";
             _linkCancel = "//*[@id='change_password_block']//*[text()='Отмена']";
+
+            _linkExit = "Выход";
         }
 
         #endregion
