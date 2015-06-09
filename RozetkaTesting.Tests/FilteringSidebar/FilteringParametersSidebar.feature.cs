@@ -67,15 +67,15 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Filter by price")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
+        [NUnit.Framework.CategoryAttribute("filter")]
         public virtual void FilterByPrice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter by price", new string[] {
-                        "mytag"});
+                        "filter"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I\'m on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("I input random min values and max values into \'price filter form\' from range of p" +
                     "ossible values", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

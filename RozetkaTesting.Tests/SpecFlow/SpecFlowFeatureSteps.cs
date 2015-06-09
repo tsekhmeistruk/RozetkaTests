@@ -21,17 +21,5 @@ namespace RozetkaTesting.Tests.SpecFlow
         {
             FeatureContext.Current.Get<IDriver>().Quit();
         }
-
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            //TODO: implement logic that has to run before executing each scenario
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            //TODO: implement logic that has to run after executing each scenario
-        }
     }
 }

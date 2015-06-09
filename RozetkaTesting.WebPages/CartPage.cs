@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 using RozetkaTesting.WebPages.PageComponents;
 
@@ -45,8 +45,18 @@ namespace RozetkaTesting.WebPages
         /// <returns>Price of products in the cart.</returns>
         public int GetTotalCost()
         {
-            var x = Regex.Replace(Label_TotalCost().GetText(), @"[^\d]", "");
-            return int.Parse(x);
+            return Parser.ParseInt(Label_TotalCost().GetText());
+        }
+
+        /// <summary>
+        /// Remove all products from the cart.
+        /// </summary>
+        public void EmptyCart()
+        {
+            for (int i = 1; i <= GetCartItemsCount(); i++)
+            {
+                ProductCartItems[i].RemoveCurrentItem();
+            }
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     {
         #region The steps of price filtration
 
-        [Given(@"I'm on the Software page")]
+        [Given(@"I am on the Software page")]
         public void GivenImOnThePage()
         {
             PageFactory.Get<OperationSystemsPage>().Open();

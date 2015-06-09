@@ -61,6 +61,15 @@ namespace RozetkaTesting.WebPages
         }
 
         /// <summary>
+        /// Checks for login.
+        /// </summary>
+        /// <returns>True if user is sign in.</returns>
+        public bool IsLogin()
+        {
+            return (Driver.FindElements(By.Id("header_user_menu")).Count == 1);
+        }
+
+        /// <summary>
         /// Verifies page.
         /// </summary>
         protected virtual void Verify()

@@ -58,6 +58,12 @@
     </Compile>
     <Compile Include="Cart\CartCheckingSteps.cs" />
     <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
+    <Compile Include="SignIn\Login.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
+    <Compile Include="SignIn\LoginSteps.cs" />
     <Compile Include="SpecFlow\PageFactory.cs" />
     <Compile Include="SpecFlow\SpecFlowFeatureSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +86,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FilteringParametersSidebar.feature.cs</LastGenOutput>
     </None>
+    <None Include="SignIn\Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj">
@@ -98,6 +108,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.Helpers;
@@ -72,10 +71,10 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// </summary>
         /// <param name="indexOfItem">Index of the item its position number of the product on the current page.</param>
         /// <returns>Price value of the product which was been added.</returns>
-        public string AddProductToCartAndReturnPrice(int indexOfItem)
+        public int AddProductToCartAndReturnPrice(int indexOfItem)
         {
             var price = ProductItems.Where(p => p.GetIndex() == indexOfItem)
-                    .Select(x => Regex.Replace(x.GetPrice(), @"[^\d]", ""))
+                    .Select(x => Parser.ParseInt(x.GetPrice()))
                     .FirstOrDefault();
 
             ProductItems[indexOfItem - 1].AddToCart();
@@ -87,7 +86,7 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// Adds random product from result page to the cart and return its price.
         /// </summary>
         /// <returns>Price value of the product which was been added.</returns>
-        public string AddProductToCartAndReturnPrice()
+        public int AddProductToCartAndReturnPrice()
         {
             var indexOfItem = RandomHelper.GetRandomValue(1, GetNumberOfProductItems());
             return AddProductToCartAndReturnPrice(indexOfItem);
@@ -121,7 +120,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private void WaitUntilCartPopUpIsAppear()
         {
-            _driver.WaitUntilElementPresent(By.Id(_idCartPopUp));
+            _driver.WaitUntilElementIsPresent(By.Id(_idCartPopUp));
         }
 
         #endregion

@@ -9,6 +9,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         private readonly int _index;
         private string _labelPriceXpath;
+        private string _linkRemoveItem;
 
         #endregion
 
@@ -33,6 +34,23 @@ namespace RozetkaTesting.WebPages.PageComponents
             return Label.ByXPath(_labelPriceXpath);
         }
 
+        private Link Link_RemoveItem()
+        {
+            return Link.ByXpath(_linkRemoveItem);
+        }
+
+        #endregion
+
+        #region ProductCartItem Functionality
+
+        /// <summary>
+        /// Remove current product from the cart.
+        /// </summary>
+        public void RemoveCurrentItem()
+        {
+            Link_RemoveItem().Click();
+        }
+
         #endregion
 
         #region Private Methods
@@ -40,6 +58,7 @@ namespace RozetkaTesting.WebPages.PageComponents
         private void Initialize()
         {
             _labelPriceXpath = String.Format("( //*[@class='cart-uah cart-sum-uah']/span[@name='sum'])[{0}]", _index);
+            _linkRemoveItem = String.Format("(//*[@name='delete'])[{0}]", _index);
         }
 
         #endregion

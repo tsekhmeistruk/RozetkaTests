@@ -201,7 +201,7 @@ namespace RozetkaTesting.Framework.Core
         /// </summary>
         /// <param name="elementLocator">Locator of element.</param>
         /// <param name="seconds">Time limit for waiting.</param>
-        public void WaitUntilElementPresent(By elementLocator, int seconds)
+        public void WaitUntilElementIsPresent(By elementLocator, int seconds)
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(seconds));
             var element = wait.Until(ExpectedConditions.ElementIsVisible(elementLocator));
@@ -211,9 +211,9 @@ namespace RozetkaTesting.Framework.Core
         /// Driver waits until the element is appear during default time for waiting.
         /// </summary>
         /// <param name="elementLocator">Locator of element.</param>
-        public void WaitUntilElementPresent(By elementLocator)
+        public void WaitUntilElementIsPresent(By elementLocator)
         {
-            WaitUntilElementPresent(elementLocator, _defaultWait);
+            WaitUntilElementIsPresent(elementLocator, _defaultWait);
         }
 
         #endregion

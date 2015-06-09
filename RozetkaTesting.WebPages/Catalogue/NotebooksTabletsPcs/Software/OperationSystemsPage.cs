@@ -216,7 +216,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <returns>Price value of the product which was been added.</returns>
         public int AddProductAndReturnPrice()
         {
-            return int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
+            return _resultPageComponent.AddProductToCartAndReturnPrice();
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <returns>Price value of the product which was been added.</returns>
         public int AddProductAndReturnPrice(int indexOfItem)
         {
-            return int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
+            return _resultPageComponent.AddProductToCartAndReturnPrice();
         }
 
         /// <summary>

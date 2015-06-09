@@ -69,6 +69,16 @@ namespace RozetkaTesting.WebPages.HtmlControls
             return new Link(By.LinkText(text));
         }
 
+        /// <summary>
+        /// Gets a link by XPAth locator.
+        /// </summary>
+        /// <param name="locator">XPath locator.</param>
+        /// <returns>Link control.</returns>
+        public static Link ByXpath(string locator)
+        {
+            return new Link(By.XPath(locator));
+        }
+
         #endregion
 
         #region Link Functionality

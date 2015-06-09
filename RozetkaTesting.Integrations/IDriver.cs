@@ -104,12 +104,12 @@ namespace RozetkaTesting.Integrations
         /// </summary>
         /// <param name="elementLocator">Locator of element.</param>
         /// <param name="seconds">Time limit for waiting.</param>
-        void WaitUntilElementPresent(By elementLocator, int seconds);
+        void WaitUntilElementIsPresent(By elementLocator, int seconds);
 
         /// <summary>
         /// Driver waits until the element is appear during default time for waiting.
         /// </summary>
         /// <param name="elementLocator">Locator of element.</param>
-        void WaitUntilElementPresent(By elementLocator);
+        void WaitUntilElementIsPresent(By elementLocator);
     }
 }
