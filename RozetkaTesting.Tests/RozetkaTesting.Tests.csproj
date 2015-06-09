@@ -51,13 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
-    <Compile Include="FilteringSidebar\TestTempFeature.feature.cs">
+    <Compile Include="Cart\CartChecking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TestTempFeature.feature</DependentUpon>
+      <DependentUpon>CartChecking.feature</DependentUpon>
     </Compile>
-    <Compile Include="FilteringSidebar\TestTempFeatureSteps.cs" />
+    <Compile Include="Cart\CartCheckingSteps.cs" />
+    <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
     <Compile Include="SpecFlow\PageFactory.cs" />
     <Compile Include="SpecFlow\SpecFlowFeatureSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,9 +71,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FilteringSidebar\TestTempFeature.feature">
+    <None Include="Cart\CartChecking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>TestTempFeature.feature.cs</LastGenOutput>
+      <LastGenOutput>CartChecking.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="FilteringSidebar\FilteringParametersSidebar.feature">

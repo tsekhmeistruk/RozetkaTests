@@ -216,8 +216,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// <returns>Price value of the product which was been added.</returns>
         public int AddProductAndReturnPrice()
         {
-            var c = int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
-            return c;
+            return int.Parse(_resultPageComponent.AddProductToCartAndReturnPrice());
         }
 
         /// <summary>

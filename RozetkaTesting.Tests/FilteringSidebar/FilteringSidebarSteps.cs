@@ -8,20 +8,12 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     [Binding]
     class FilteringSidebarSteps
     {
-        private OperationSystemsPage _osPage;
-
-        [BeforeScenario]
-        private void Initialize()
-        {
-            _osPage = PageFactory.Get<OperationSystemsPage>();
-        }
-
         #region The steps of price filtration
 
         [Given(@"I'm on the Software page")]
         public void GivenImOnThePage()
         {
-            _osPage.Open();
+            PageFactory.Get<OperationSystemsPage>().Open();
         }
 
         [Given(@"I input random min values and max values into 'price filter form' from range of possible values")]
@@ -29,7 +21,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         {
             int minValue;
             int maxValue;
-            _osPage.SetPriceFilter(out minValue, out maxValue);
+            PageFactory.Get<OperationSystemsPage>().SetPriceFilter(out minValue, out maxValue);
             ScenarioContext.Current.Set<int>(minValue, "priceMinValue");
             ScenarioContext.Current.Set<int>(maxValue, "priceMaxValue");
         }
@@ -37,7 +29,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         [When(@"I press ok button for submitting price filter")]
         public void WhenIPressButtonForSubmittingPriceFilter()
         {
-            _osPage.SubmitPriceFilter();
+            PageFactory.Get<OperationSystemsPage>().SubmitPriceFilter();
         }
 
         [Then(@"The result page should contains goods which has appropriate price range")]
@@ -45,7 +37,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         {
             var priceMinValue = ScenarioContext.Current.Get<int>("priceMinValue");
             var priceMaxValue = ScenarioContext.Current.Get<int>("priceMaxValue");
-            Assert.IsTrue(_osPage.IsPriceInRange(priceMinValue, priceMaxValue));
+            Assert.IsTrue(PageFactory.Get<OperationSystemsPage>().IsPriceInRange(priceMinValue, priceMaxValue));
         }
 
         #endregion

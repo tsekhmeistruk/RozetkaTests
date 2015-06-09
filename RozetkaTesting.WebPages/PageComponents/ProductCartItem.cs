@@ -14,6 +14,10 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of ProductCartItem class.
+        /// </summary>
+        /// <param name="index"></param>
         public ProductCartItem(int index)
         {
             _index = index;

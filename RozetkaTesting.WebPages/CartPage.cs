@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
 using RozetkaTesting.WebPages.HtmlControls;
+using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages
 {
@@ -9,9 +12,19 @@ namespace RozetkaTesting.WebPages
     {
         #region Private Fields
 
-        private string _cartItemsXpath;
-        private string _labelEmptyCartXpath;
         private string _emptyCart;
+        private string _cartItemsXpath;
+        private string _totalCostXpath;
+        private string _labelEmptyCartXpath;
+
+        private List<ProductCartItem> _productCartItems;
+        private List<ProductCartItem> ProductCartItems
+        {
+            get
+            {
+                return _productCartItems ?? (_productCartItems = GetProductItems());
+            }
+        }
 
         #endregion
 
@@ -24,6 +37,16 @@ namespace RozetkaTesting.WebPages
         public int GetCount()
         {
             return GetCartItemsCount();
+        }
+
+        /// <summary>
+        /// Gets total cost of all products in the cart.
+        /// </summary>
+        /// <returns>Price of products in the cart.</returns>
+        public int GetTotalCost()
+        {
+            var x = Regex.Replace(Label_TotalCost().GetText(), @"[^\d]", "");
+            return int.Parse(x);
         }
 
         #endregion
@@ -40,10 +63,19 @@ namespace RozetkaTesting.WebPages
 
         #endregion
 
+        #region Controls
+
         private Label Label_EmptyCart()
         {
             return Label.ByXPath(_labelEmptyCartXpath);
         }
+
+        private Label Label_TotalCost()
+        {
+            return Label.ByXPath(_totalCostXpath);
+        }
+
+        #endregion
 
         #region Override Methods
 
@@ -52,9 +84,10 @@ namespace RozetkaTesting.WebPages
             PageUri = new Uri("https://my.rozetka.com.ua/cart/");
             PageTitle = "ROZETKA — Корзина";
 
-            _cartItemsXpath = "//div[@class='clearfix cart-i active']";
-            _labelEmptyCartXpath = "//h2[text()='Корзина пуста']";
             _emptyCart = "Корзина пуста";
+            _cartItemsXpath = "//div[@class='clearfix cart-i active']";
+            _totalCostXpath = "//span[@class='cart-total-uah']/span[@name='cost']";
+            _labelEmptyCartXpath = "//h2[text()='Корзина пуста']";
         }
 
         #endregion
@@ -71,6 +104,16 @@ namespace RozetkaTesting.WebPages
             {
                 return false;
             }
+        }
+
+        private List<ProductCartItem> GetProductItems()
+        {
+            var productItems = new List<ProductCartItem>();
+            for (int i = 1; i <= GetCartItemsCount(); i++)
+            {
+                productItems.Add(new ProductCartItem(i));
+            }
+            return productItems;
         }
 
         private int GetCartItemsCount()
