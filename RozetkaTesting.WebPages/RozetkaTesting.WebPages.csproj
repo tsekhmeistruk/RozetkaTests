@@ -62,13 +62,17 @@
     <Compile Include="HtmlControls\Link.cs" />
     <Compile Include="HtmlControls\RadioButton.cs" />
     <Compile Include="HtmlControls\TextField.cs" />
+    <Compile Include="MainPage.cs" />
     <Compile Include="PageComponents\HeaderComponent.cs" />
     <Compile Include="PageComponents\PriceFilterComponent.cs" />
     <Compile Include="PageComponents\ProductCartItem.cs" />
     <Compile Include="PageComponents\ProductItem.cs" />
     <Compile Include="PageComponents\ResultPageComponent.cs" />
+    <Compile Include="PageComponents\SearchProductItem.cs" />
+    <Compile Include="ProductDescriptionPage.cs" />
     <Compile Include="ProfilePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchResultPage.cs" />
     <Compile Include="SignInPage.cs" />
     <Compile Include="SignUpPage.cs" />
   </ItemGroup>

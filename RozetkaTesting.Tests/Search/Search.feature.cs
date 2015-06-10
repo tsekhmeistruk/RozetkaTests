@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace RozetkaTesting.Tests.FilteringSidebar
+namespace RozetkaTesting.Tests.Search
 {
     using TechTalk.SpecFlow;
     
@@ -19,21 +19,21 @@ namespace RozetkaTesting.Tests.FilteringSidebar
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("FilteringParametersSidebar")]
-    public partial class FilteringParametersSidebarFeature
+    [NUnit.Framework.DescriptionAttribute("Search")]
+    public partial class SearchFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "FilteringParametersSidebar.feature"
+#line 1 "Search.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FilteringParametersSidebar", "In order to ckeck the filter functionality\nAs a user\nI want to be able to filter " +
-                    "results on the result page", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Search", "In order to check search functionality\nAs a user\nI want to find products accordin" +
+                    "gly to my search request", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,23 +66,35 @@ namespace RozetkaTesting.Tests.FilteringSidebar
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Filter by price")]
-        [NUnit.Framework.CategoryAttribute("filter")]
-        public virtual void FilterByPrice()
+        [NUnit.Framework.DescriptionAttribute("Search products")]
+        [NUnit.Framework.CategoryAttribute("search")]
+        [NUnit.Framework.TestCaseAttribute("Велосипеды", null)]
+        [NUnit.Framework.TestCaseAttribute("Ноутбуки", null)]
+        public virtual void SearchProducts(string keyword, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Filter by price", new string[] {
-                        "filter"});
+            string[] @__tags = new string[] {
+                    "search"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search products", @__tags);
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I am on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Main page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("I enter random min values and max values into \'price filter form\' from range of p" +
-                    "ossible values", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When(string.Format("I enter search \"{0}\"", keyword), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.When("I press ok button for submitting price filter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I press search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.Then("The result page should contains goods which has appropriate price range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("the Search Result page is loaded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+ testRunner.And("I click on the random product from the list of products on the Result page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.And("the page product description page is loaded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.Then(string.Format("the product category name should include the \"{0}\".", keyword), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -55,14 +55,14 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// <summary>
         /// Clear and type search phrase into search field.
         /// </summary>
-        /// <param name="searchPhrase"></param>
+        /// <param name="searchPhrase">The word or phrase for the search.</param>
         public void InputSearchPhrase(string searchPhrase)
         {
             Input_Search().ClearAndType(searchPhrase);
         }
 
         /// <summary>
-        /// Submits searching.
+        /// Submits search.
         /// </summary>
         public void Search()
         {

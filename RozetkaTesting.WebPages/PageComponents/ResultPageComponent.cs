@@ -9,7 +9,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 {
     /// <summary>
     /// Provides functionality of page part which display specific category of products.
-    /// For example: Notebooks, SSD, Operation systems etc. 
+    /// For example: Notebooks, SSD, Operation systems etc.
     /// </summary>
     public class ResultPageComponent: IResultPageComponent
     {

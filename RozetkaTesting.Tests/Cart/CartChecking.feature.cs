@@ -75,7 +75,7 @@ namespace RozetkaTesting.Tests.Cart
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I\'m on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.When("I add random product to my cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10

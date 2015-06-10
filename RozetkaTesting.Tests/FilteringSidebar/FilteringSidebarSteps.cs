@@ -16,7 +16,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
             PageFactory.Get<OperationSystemsPage>().Open();
         }
 
-        [Given(@"I input random min values and max values into 'price filter form' from range of possible values")]
+        [Given(@"I enter random min values and max values into 'price filter form' from range of possible values")]
         public void GivenIInputValuesAndValues()
         {
             int minValue;

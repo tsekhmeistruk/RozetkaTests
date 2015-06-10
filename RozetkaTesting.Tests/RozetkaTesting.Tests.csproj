@@ -58,6 +58,12 @@
     </Compile>
     <Compile Include="Cart\CartCheckingSteps.cs" />
     <Compile Include="FilteringSidebar\FilteringSidebarSteps.cs" />
+    <Compile Include="Search\Search.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Search\SearchSteps.cs" />
     <Compile Include="SignIn\Login.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +91,10 @@
     <None Include="FilteringSidebar\FilteringParametersSidebar.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FilteringParametersSidebar.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Search\Search.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Search.feature.cs</LastGenOutput>
     </None>
     <None Include="SignIn\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

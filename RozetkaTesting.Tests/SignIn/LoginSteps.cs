@@ -64,7 +64,5 @@ namespace RozetkaTesting.Tests.SignIn
         {
             Assert.IsTrue(PageFactory.Get<SignInPage>().IsLogin());
         }
-
-
     }
 }

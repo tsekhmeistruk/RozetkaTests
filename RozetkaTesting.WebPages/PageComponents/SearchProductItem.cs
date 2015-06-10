@@ -1,30 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenQA.Selenium;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.PageComponents
 {
-    public class ProductItem
+    public class SearchProductItem
     {
         #region Private Fields
 
-        //Number of item(product) on the Result Page.
         private readonly int _index;
-
         private string _labelPriceXPath;
         private string _buttonBuyXPath;
         private string _linkTitle;
-        private string _linkWishList;
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Constructor of ProductItem which uses index of item parameter.
+        /// Constructor of SearchProductItem which uses index of item parameter.
         /// </summary>
-        /// <param name="index"></param>
-        public ProductItem(int index)
+        /// <param name="index">Index of the item in the list of items.</param>
+        public SearchProductItem(int index)
         {
             _index = index;
             Initialize();
@@ -51,7 +52,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         #endregion
 
-        #region Product Item Functionality
+        #region SearchProductItem Functionality
 
         /// <summary>
         /// Add current product to the cart.
@@ -88,16 +89,24 @@ namespace RozetkaTesting.WebPages.PageComponents
             return Link_Title().GetText();
         }
 
+        /// <summary>
+        /// Opens current product item.
+        /// </summary>
+        public void OpenItem()
+        {
+            Link_Title().Click();
+        }
+
         #endregion
 
-        #region Private Methods
+        #region Privte Methods
 
-        protected void Initialize()
+        private void Initialize()
         {
-            _labelPriceXPath = String.Format("(//div[@name='goods_list']//div[@class='g-price-uah'])[{0}]", _index);
-            _buttonBuyXPath = String.Format("(//div[@name='goods_list']//button[@name='topurchasesfromcatalog'])[{0}]", _index);
-            _linkTitle = String.Format("(//div[@name='goods_list']//div[@class='g-i-tile-i-title clearfix']/a)[{0}]", _index);
-            _linkWishList = String.Format("(//div[@name='goods_list']//*[@class='g-wishlist'])[{0}]", _index);
+            _labelPriceXPath = String.Format("(//div[@class='g-price-uah'])[{0}]", _index);
+            _buttonBuyXPath =
+                String.Format("(//div[@class='g-i-list available clearfix']//button[@class='btn-link-i'])[{0}]", _index);
+            _linkTitle = String.Format("(//*[@class='g-i-list-title'])[{0}]/a", _index);
         }
 
         #endregion
