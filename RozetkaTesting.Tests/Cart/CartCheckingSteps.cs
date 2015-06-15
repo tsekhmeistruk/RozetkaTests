@@ -16,12 +16,6 @@ namespace RozetkaTesting.Tests.Cart
             ScenarioContext.Current.Set<int>(price, "price");
         }
 
-        [When(@"I am on the Cart page")]
-        public void WhenIAmOnTheCartPage()
-        {
-            PageFactory.Get<CartPage>().Open();
-        }
-
         [Then(@"I should see the product which I have added before")]
         public void ThenIShouldSeeTheProductWhichIHaveAddedBefore()
         {

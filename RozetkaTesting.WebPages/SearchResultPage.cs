@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
 using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages
 {
+    [Page("Search Result")]
     public class SearchResultPage: BasePage
     {
         #region Private Fields and Properties

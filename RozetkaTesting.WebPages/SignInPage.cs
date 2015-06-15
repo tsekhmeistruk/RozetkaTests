@@ -1,10 +1,13 @@
 ﻿using System;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages
 {
+    [Page("SignIn")]
     public class SignInPage: BasePage
     {
         #region Private Fields
@@ -95,7 +98,7 @@ namespace RozetkaTesting.WebPages
         protected override void Initialize()
         {
             PageTitle = "ROZETKA — Вход в интернет-магазин";
-            PageUri = new Uri("https://my.rozetka.com.ua/signin/");
+            PageUri = UrlBuilder.Get("my", "signin", true);
 
 
             _loginName = "login";

@@ -5,12 +5,12 @@
 
 @search
 Scenario Outline: Search products
-	Given I am on the Main page
+	Given I am on the "Main" page
 	When I enter search "<keyword>"
 	And I press search button
-	And the Search Result page is loaded
+	And the "Search Result" page is loaded
 	And I click on the random product from the list of products on the Result page
-	And the page product description page is loaded
+	And the product description page is loaded
 	Then the product category name should include the "<keyword>". 
 
 	Examples: 

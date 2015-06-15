@@ -12,12 +12,6 @@ namespace RozetkaTesting.Tests.Search
     [Binding]
     public sealed class SearchSteps
     {
-        [Given(@"I am on the Main page")]
-        public void GivenIAmOnTheMainPage()
-        {
-            PageFactory.Get<MainPage>().Open();
-        }
-
         [When(@"I enter search ""(.*)""")]
         public void WhenIEnterSearch(string keyword)
         {
@@ -42,7 +36,7 @@ namespace RozetkaTesting.Tests.Search
             PageFactory.Get<SearchResultPage>().OpenProductDesription();
         }
 
-        [When(@"the page product description page is loaded")]
+        [When(@"the product description page is loaded")]
         public void WhenThePageWithProductDescriptionIsLoaded()
         {
             PageFactory.Get<ProductDescriptionPage>().Verify();

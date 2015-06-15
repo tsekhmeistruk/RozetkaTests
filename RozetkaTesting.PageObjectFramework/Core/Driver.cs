@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -204,7 +205,7 @@ namespace RozetkaTesting.Framework.Core
         public void WaitUntilElementIsPresent(By elementLocator, int seconds)
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(seconds));
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(elementLocator));
+            var element = wait.Until(ExpectedConditions.ElementExists(elementLocator));
         }
 
         /// <summary>
@@ -214,6 +215,28 @@ namespace RozetkaTesting.Framework.Core
         public void WaitUntilElementIsPresent(By elementLocator)
         {
             WaitUntilElementIsPresent(elementLocator, _defaultWait);
+        }
+
+        /// <summary>
+        /// Waits for the current page to load or the specified timeout lapses.
+        /// </summary>
+        /// <param name="timeout">The time in seconds to wait.</param>
+        /// <seealso cref="WaitForPageLoaded()"/>
+        public void WaitForPageLoaded(long timeout)
+        {
+            Func<IWebDriver, bool> condition = driver =>
+                                                  (((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState;"))
+                                                    .ToString().Equals("complete");
+            WaitUntilExpected(condition, timeout);
+        }
+
+        /// <summary>
+        /// Waits for the current page to load or the default timeout lapses.
+        /// </summary>
+        /// <seealso cref="WaitForPageLoaded(long)"/>
+        public void WaitForPageLoaded()
+        {
+            WaitForPageLoaded(_defaultWait);
         }
 
         #endregion
@@ -333,6 +356,12 @@ namespace RozetkaTesting.Framework.Core
             {
                 throw new Exception("Incorrect config data of Default waiting time.");
             }
+        }
+
+        private void WaitUntilExpected(Func<IWebDriver, bool> condition, long timeout)
+        {
+            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeout));
+                wait.Until(condition);
         }
 
         #endregion

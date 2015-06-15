@@ -103,7 +103,7 @@ namespace RozetkaTesting.WebPages.PageComponents
             TextField_MinPriceValue().ClearAndType("_");
             TextField_MaxPriceValue().ClearAndType("");
             minValue = int.Parse(TextField_MinPriceValue().GetValue());
-            maxValue = int.Parse(TextField_MaxPriceValue().GetValue());
+            maxValue = (int) double.Parse(TextField_MaxPriceValue().GetValue());
         }
 
         private void GetRandomRange(out int minValue, out int maxValue)

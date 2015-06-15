@@ -48,11 +48,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\PageAttribute.cs" />
     <Compile Include="CartPage.cs" />
     <Compile Include="Catalogue\NotebooksTabletsPcs\Software\OperationSystemsPage.cs" />
     <Compile Include="BasePage.cs" />
     <Compile Include="Helpers\Parser.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="HtmlControls\BaseControl.cs" />
     <Compile Include="HtmlControls\Button.cs" />
     <Compile Include="HtmlControls\Checkbox.cs" />
@@ -86,6 +89,7 @@
     <Folder Include="Catalogue\NotebooksTabletsPcs\Hardware\" />
     <Folder Include="Catalogue\NotebooksTabletsPcs\Notebooks\" />
     <Folder Include="Catalogue\NotebooksTabletsPcs\Pcs\" />
+    <Folder Include="SpecFlow\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -111,5 +111,18 @@ namespace RozetkaTesting.Integrations
         /// </summary>
         /// <param name="elementLocator">Locator of element.</param>
         void WaitUntilElementIsPresent(By elementLocator);
+
+        /// <summary>
+        /// Waits for the current page to load or the specified timeout lapses.
+        /// </summary>
+        /// <param name="timeout">The time in seconds to wait.</param>
+        /// <seealso cref="WaitForPageLoaded()"/>
+        void WaitForPageLoaded(long timeout);
+
+        /// <summary>
+        /// Waits for the current page to load or the default timeout lapses.
+        /// </summary>
+        /// <seealso cref="WaitForPageLoaded(long)"/>
+        void WaitForPageLoaded();
     }
 }

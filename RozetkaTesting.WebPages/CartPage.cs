@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
 using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 using RozetkaTesting.WebPages.PageComponents;
 
 namespace RozetkaTesting.WebPages
 {
+    [Page("Cart")]
     public class CartPage : BasePage
     {
         #region Private Fields
@@ -91,7 +93,7 @@ namespace RozetkaTesting.WebPages
 
         protected override void Initialize()
         {
-            PageUri = new Uri("https://my.rozetka.com.ua/cart/");
+            PageUri = UrlBuilder.Get("my", "cart", true);
             PageTitle = "ROZETKA — Корзина";
 
             _emptyCart = "Корзина пуста";

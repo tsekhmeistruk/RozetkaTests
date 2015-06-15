@@ -5,7 +5,7 @@
 
 @cart
 Scenario: Add product to my cart
-	Given I am on the Software page
+	Given I am on the "Operation Systems" page
 	When I add random product to my cart
-	And I am on the Cart page
+	And I am on the "Cart" page
 	Then I should see the product which I have added before

@@ -8,12 +8,6 @@ namespace RozetkaTesting.Tests.SignIn
     [Binding]
     public class LoginSteps
     {
-        [Given(@"I am on the SignIn page")]
-        public void GivenIAmOnTheSignInPage()
-        {
-            PageFactory.Get<SignInPage>().Open();
-        }
-
         [Given(@"I enter a valid registered email and invalid password")]
         public void GivenITypeValidRegisteredEmailAndInvalidPassword()
         {
@@ -57,12 +51,6 @@ namespace RozetkaTesting.Tests.SignIn
             string password = "qwertbnm";
 
             PageFactory.Get<SignInPage>().FillRegistrationForm(email, password);
-        }
-
-        [Then(@"I see my profile page")]
-        public void ThenISeeMyProfilePage()
-        {
-            Assert.IsTrue(PageFactory.Get<SignInPage>().IsLogin());
         }
     }
 }

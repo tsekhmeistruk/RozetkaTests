@@ -75,7 +75,7 @@ namespace RozetkaTesting.Tests.FilteringSidebar
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I am on the Software page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the \"Operation Systems\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("I enter random min values and max values into \'price filter form\' from range of p" +
                     "ossible values", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

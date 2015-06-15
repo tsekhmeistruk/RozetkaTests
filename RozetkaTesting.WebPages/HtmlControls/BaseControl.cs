@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using RozetkaTesting.Integrations;
 
 namespace RozetkaTesting.WebPages.HtmlControls
@@ -100,6 +101,12 @@ namespace RozetkaTesting.WebPages.HtmlControls
             {
                 element.Click();
             }
+
+            catch (InvalidOperationException)
+            {
+                Driver.ExecuteJavaScript("arguments[0].scrollIntoView()", element);
+            }
+
             catch (Exception e)
             {
                 throw new Exception(String.Format("Failed to click on {0} element. Error: {1}", _description, e));

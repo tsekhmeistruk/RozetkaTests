@@ -94,7 +94,7 @@ namespace RozetkaTesting.WebPages.PageComponents
 
         protected void Initialize()
         {
-            _labelPriceXPath = String.Format("(//div[@name='goods_list']//div[@class='g-price-uah'])[{0}]", _index);
+            _labelPriceXPath = String.Format("(//div[@name='goods_list']//button[@name='topurchasesfromcatalog']//..//..//..//..//..//..//..//div[@name='prices_active_element_original']//div[@class='g-price-uah'])[{0}]", _index);
             _buttonBuyXPath = String.Format("(//div[@name='goods_list']//button[@name='topurchasesfromcatalog'])[{0}]", _index);
             _linkTitle = String.Format("(//div[@name='goods_list']//div[@class='g-i-tile-i-title clearfix']/a)[{0}]", _index);
             _linkWishList = String.Format("(//div[@name='goods_list']//*[@class='g-wishlist'])[{0}]", _index);

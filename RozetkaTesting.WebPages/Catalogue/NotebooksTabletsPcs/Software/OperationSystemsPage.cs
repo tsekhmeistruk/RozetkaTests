@@ -1,9 +1,12 @@
 ﻿using System;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
 {
+    [Page("Operation Systems")]
     public sealed class OperationSystemsPage: BasePage
     {
         #region String Values of Tag's Attributes on the Page
@@ -259,7 +262,7 @@ namespace RozetkaTesting.WebPages.Catalogue.NotebooksTabletsPcs.Software
         /// </summary>
         protected override void Initialize()
         {
-            PageUri = new Uri("http://soft.rozetka.com.ua/os/c80063/");
+            PageUri = UrlBuilder.Get("soft", "os/c80063", false);
 
             PageTitle = "Операционные системы - Интернет магазин Rozetka.ua | " +
                         "Операционная система windows в Киеве, Одессе, Харькове, " +

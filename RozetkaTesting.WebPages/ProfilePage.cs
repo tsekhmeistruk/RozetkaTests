@@ -1,10 +1,13 @@
 ﻿using System;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages
 {
+    [Page("Profile")]
     public class ProfilePage: BasePage
     {
         #region Private Fields
@@ -115,13 +118,19 @@ namespace RozetkaTesting.WebPages
         {
             Link_Cancel().Click();
         }
+
+        public new void Verify()
+        {
+            Driver.WaitUntilElementIsPresent(By.XPath("//h1[text()='Личные данные']"));
+        }
+
         #endregion
 
         #region Override Methods
 
         protected override void Initialize()
         {
-            PageUri = new Uri("https://my.rozetka.com.ua/profile/personal-information/");
+            PageUri = UrlBuilder.Get("my", "profile/personal-information", true);
             PageTitle = "ROZETKA — Личные данные | Личный кабинет";
 
             _labelPersonalTitle = "//*[@id='personal_information']//h1";

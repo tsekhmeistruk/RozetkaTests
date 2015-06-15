@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Helpers;
 using RozetkaTesting.WebPages.HtmlControls;
 
 namespace RozetkaTesting.WebPages
@@ -88,7 +89,7 @@ namespace RozetkaTesting.WebPages
         protected override void Initialize()
         {
             PageTitle = "ROZETKA — Регистрация";
-            PageUri = new Uri("https://my.rozetka.com.ua/signup/");
+            PageUri = UrlBuilder.Get("my", "signup", true);
 
             _labelHeader = "//*[@class='clearfix signup']/h1";
             _nameName = "title";

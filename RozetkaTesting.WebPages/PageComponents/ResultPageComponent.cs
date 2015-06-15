@@ -18,6 +18,7 @@ namespace RozetkaTesting.WebPages.PageComponents
         private readonly IDriver _driver;
         private string _titleResultPageCss;
         private string _catalogueItem;
+        private string _catalogueAvailableItem;
         private string _idCartPopUp;
 
         private List<ProductItem> _productItems;
@@ -88,7 +89,7 @@ namespace RozetkaTesting.WebPages.PageComponents
         /// <returns>Price value of the product which was been added.</returns>
         public int AddProductToCartAndReturnPrice()
         {
-            var indexOfItem = RandomHelper.GetRandomValue(1, GetNumberOfProductItems());
+            var indexOfItem = RandomHelper.GetRandomValue(1, GetNumberOfAvailableProductItems());
             return AddProductToCartAndReturnPrice(indexOfItem);
         }
 
@@ -101,21 +102,27 @@ namespace RozetkaTesting.WebPages.PageComponents
             _titleResultPageCss = "#title_page .c-cols-inner-l > h1";
             _idCartPopUp = "cart-popup";
             _catalogueItem = "//div[@class='g-i-tile g-i-tile-catalog']";
+            _catalogueAvailableItem = "//div[@name='goods_list']//button[@name='topurchasesfromcatalog']";
         }
 
         private List<ProductItem> GetProductItems()
         {
             var productItems = new List<ProductItem>();
-            for (int i = 1; i <= GetNumberOfProductItems(); i++)
+            for (int i = 1; i <= GetNumberOfAvailableProductItems(); i++)
             {
                 productItems.Add(new ProductItem(i));
             }
             return productItems;
         }
 
-        private int GetNumberOfProductItems()
+        private int GetNumberOfAllProductItems()
         {
             return _driver.FindElements(By.XPath(_catalogueItem)).Count;
+        }
+
+        private int GetNumberOfAvailableProductItems()
+        {
+            return _driver.FindElements(By.XPath(_catalogueAvailableItem)).Count;
         }
 
         private void WaitUntilCartPopUpIsAppear()

@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Helpers;
 
 namespace RozetkaTesting.WebPages
 {
@@ -48,6 +49,7 @@ namespace RozetkaTesting.WebPages
         public void Open()
         {
             Driver.Navigate(PageUri);
+            Driver.WaitForPageLoaded();
             Verify();
         }
 
@@ -70,9 +72,17 @@ namespace RozetkaTesting.WebPages
         }
 
         /// <summary>
+        /// Logout from the site.
+        /// </summary>
+        public void LogOut()
+        {
+            Driver.Navigate(UrlBuilder.Get("my", "signout", false));
+        }
+
+        /// <summary>
         /// Verifies page.
         /// </summary>
-        protected virtual void Verify()
+        public virtual void Verify()
         {
             if (!HasTitle())
             {

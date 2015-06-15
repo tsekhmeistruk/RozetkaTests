@@ -1,8 +1,11 @@
 ﻿using System;
 using RozetkaTesting.Integrations;
+using RozetkaTesting.WebPages.Attributes;
+using RozetkaTesting.WebPages.Helpers;
 
 namespace RozetkaTesting.WebPages
 {
+    [Page("Main")]
     public class MainPage: BasePage
     {
         #region Page Component
@@ -61,7 +64,7 @@ namespace RozetkaTesting.WebPages
             PageTitle =
                 "Интернет-магазин ROZETKA™: фототехника, видеотехника, аудиотехника, компьютеры и компьютерные комплектующие";
 
-            PageUri = new Uri("http://rozetka.com.ua");
+            PageUri = UrlBuilder.Get("", "", false);
         }
 
         #endregion
