@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozetkaTesting.Tests", "Roz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozetkaTesting.Integrations", "RozetkaTesting.Integrations\RozetkaTesting.Integrations.csproj", "{D2CE248B-8312-435D-89BE-0101A003F71C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{02AD646E-4E34-4CE0-AE36-0DB7B078E47C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D2CE248B-8312-435D-89BE-0101A003F71C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CE248B-8312-435D-89BE-0101A003F71C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CE248B-8312-435D-89BE-0101A003F71C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AD646E-4E34-4CE0-AE36-0DB7B078E47C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AD646E-4E34-4CE0-AE36-0DB7B078E47C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AD646E-4E34-4CE0-AE36-0DB7B078E47C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AD646E-4E34-4CE0-AE36-0DB7B078E47C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
